@@ -1,5 +1,5 @@
 /* 
- *  Project: Colorheader
+ *  Project: Neopixel Fill
  *  Description: Learn to Use Header Files
  *  Author: Brian Rashap
  *  Date: 4-Mar-2020
@@ -29,17 +29,22 @@ void setup() {
 
   //Initialize NeoPixels
   pixels.begin();
+  pixels.setBrightness(255);
+  pixels.clear();
 }
 
 void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
   pixels.show();
+  delay(pixeldelay);
 
-  for(i=start_pixel; i<NUMPIXELS; i++) { 
-    Serial.print("Lighting up pixel ");
-    Serial.println(i);
-    pixels.setPixelColor(i,lime);  // change this color to any color in colors.h
-    pixels.show();     // Send the updated pixel colors to the hardware.
-    delay(pixeldelay); // Pause before next pass through loop
-  }
+  pixels.fill(red, 0, 6);
+  pixels.show();
+  delay(pixeldelay);
+  pixels.fill(lime, 6, 6);
+  pixels.show();
+  delay(pixeldelay);
+  pixels.fill(blue, 12,4);
+  pixels.show();
+  delay(5000);
 }
