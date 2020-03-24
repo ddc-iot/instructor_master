@@ -17,7 +17,6 @@ Encoder myEnc(3,2);
 
 int oldPosition  = -999;
 int newPosition;
-
 int scale;
 
 void setup() {
