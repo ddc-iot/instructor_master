@@ -5,9 +5,18 @@
  * Date 11-Feb-2020
  */
 
-// Wire Pins 2 and 3 of the Teensy to the A and B terminals of the Encoder
-// The C (Common) terminal of the Encoder should be connected to Ground
-// Wire the Neopixels as usual
+/* Wiring Instructions
+ *  A = Pin 2
+ *  B = Pin 3
+ *  C = GND
+ *  SW = Pin 20
+ *  R = Pin 21
+ *  G = Pin 22
+ *  GND = GND
+ *  there is one pin with no wiring
+ *  
+ *  Wire the first NeoPixel's D_in to Pin 17
+ */
 
 #include <Encoder.h>
 #include <Adafruit_NeoPixel.h>
