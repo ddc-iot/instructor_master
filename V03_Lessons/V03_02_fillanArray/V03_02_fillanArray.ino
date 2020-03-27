@@ -1,8 +1,8 @@
 /*
- * Project: V3_1_fillanArray
+ * Project: V03_02_fillanArray
  * Description: Practice using Arrays
- * Author: <your name>
- * Date: <today's date>
+ * Author: Brian Rashap
+ * Date: 27-MAR-2020
  */
 
 /* ASSIGNMENT
@@ -61,12 +61,11 @@ void loop() {
 
 for(i=0;i<20;i++) {
   simonArray[i] = random(0,4);
-
-  Serial.println(simonArray[i]);
   displaySimon(simonArray,i+1);
   delay(1000);  
   }
-  for(i=0;i<20;i++) {
+  
+for(i=0;i<20;i++) {
   simonArray[i]=0;
   }
 }
