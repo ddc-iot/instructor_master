@@ -15,7 +15,7 @@
 #define LED_PIN     17
 
 // attach the input of LED string to pin 20
-#define NUM_PIXELS   60
+#define NUM_PIXELS   16
 
 Adafruit_NeoPixel pixels(NUM_PIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -51,10 +51,10 @@ String inString;
   Serial.println ("Ready to Go");
 
   inString = "";
-
 }
 
 void loop() {
+inString = "";
 Serial.println("Select Mode 1, 2, or 3");
 selectmode = 0;
 while(selectmode==0) {
