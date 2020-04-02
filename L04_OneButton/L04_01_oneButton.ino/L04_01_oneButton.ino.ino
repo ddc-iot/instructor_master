@@ -10,7 +10,7 @@
 #include "OneButton.h"
 
 // Setup OneButton on pin 23
-OneButton button1(23, false);    // the second parameter is the "activeLOW" option: "true" means when button is pushed the input is LOW
+OneButton button1(20, true, true);    // the second parameter is the "activeLOW" option: "true" means when button is pushed the input is LOW
                                  // our button is connected with a pull_down resistor, so we set this parameter to "false"
 
 bool buttonState = false;        // with a single and double click, we will change the states of these two parameters. 
