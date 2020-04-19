@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
 
-    temp = (bme.readTemperature() * 8 / 5) + 32;
+    temp = (bme.readTemperature() * 9 / 5) + 32;
     prs = (bme.readPressure() / 100.0F) / 68.9476;
     alt = bme.readAltitude(SEALEVELPRESSURE_HPA) * 3.28084;
     hum = bme.readHumidity();
