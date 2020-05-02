@@ -18,6 +18,7 @@ const int hueHubPort = 80;   // HTTP: 80, HTTPS: 443, HTTP-PROXY: 8080
 int pir = 23;
 boolean activated = true;
 int bulb = 5;
+long color;
 
 //  Hue variables
 boolean hueOn;  // on/off
@@ -58,6 +59,8 @@ void setup()
   pinMode(pir,INPUT);
   delay(2000);
   Serial.println("Ready.");
+
+  color = 0;
 }
 
 void loop() 
@@ -99,15 +102,17 @@ void loop()
     }
 
     elapse = millis()-lastmillis;
-    if(onoff==true && elapse > 30000) {
+    if(onoff==true && elapse > 10000) {
       Serial.println(" - activated");
       delay(500);
       activated = true;
       lastmillis = millis();
       int RNDhue = random(1,65000);
+      Serial.print("Color = "); Serial.println(color);
       String command = "{\"on\":true,\"sat\":255,\"bri\":255,\"hue\":";
-      command = command + String(RNDhue) + "}";
+      command = command + String(color) + "}";
       setHue(bulb,command);
+      color = color + 500;
     }  
 
   if(onoff==false && activated == true) {
