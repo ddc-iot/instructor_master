@@ -62,7 +62,7 @@ void loop()
       delay(500);
       activated = true;
       lastmillis = millis();
-      setHue(bulb,activated, HueRainbow[color],255);
+      setHue(bulb,activated, HueRainbow[color],random(32,256));
       color++;
     }  
 
