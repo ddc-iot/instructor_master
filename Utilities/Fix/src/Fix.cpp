@@ -2,7 +2,7 @@
 //       THIS IS A GENERATED FILE - DO NOT EDIT       //
 /******************************************************/
 
-#line 1 "/home/brian/Particle/Fix/src/Fix.ino"
+#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/Fix/src/Fix.ino"
 /*
  * Project fix
  * Description: fix the argon going into listening mode
@@ -12,7 +12,7 @@
 #include "Particle.h"
 #include "dct.h"
 void setup();
-#line 9 "/home/brian/Particle/Fix/src/Fix.ino"
+#line 9 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/Fix/src/Fix.ino"
 SYSTEM_MODE(SEMI_AUTOMATIC);
 void setup() {
     const uint8_t val = 0x01;
