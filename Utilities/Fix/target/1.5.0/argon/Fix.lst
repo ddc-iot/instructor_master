@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 c:/Users/IoTPa/Documents/IoT/cohort2/instructor_master/Utilities/Fix/target/1.5.0/argon/Fix.elf:     file format elf32-littlearm
+=======
+c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/Fix/target/1.5.0/argon/Fix.elf:     file format elf32-littlearm
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -31,11 +35,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  13 .debug_macro  0002de63  00000000  00000000  000f832a  2**0
                   CONTENTS, READONLY, DEBUGGING
+<<<<<<< HEAD
  14 .debug_line   0001be00  00000000  00000000  0012618d  2**0
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_str    000ff3b1  00000000  00000000  00141f8d  2**0
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_frame  0000b5a4  00000000  00000000  00241340  2**2
+=======
+ 14 .debug_line   0001c538  00000000  00000000  0012618d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_str    000ff3ec  00000000  00000000  001426c5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_frame  0000b5a4  00000000  00000000  00241ab4  2**2
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -51,11 +63,22 @@ Disassembly of section .text:
    d402a:	d002      	beq.n	d4032 <module_user_pre_init+0x16>
    d402c:	1a12      	subs	r2, r2, r0
    d402e:	f000 ffbd 	bl	d4fac <memcpy>
+<<<<<<< HEAD
+=======
+    }
+
+    memset(&link_bss_location, 0, link_bss_size );
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
    d4032:	4807      	ldr	r0, [pc, #28]	; (d4050 <link_dynalib_end+0x34>)
    d4034:	4a07      	ldr	r2, [pc, #28]	; (d4054 <link_dynalib_end+0x38>)
    d4036:	2100      	movs	r1, #0
    d4038:	1a12      	subs	r2, r2, r0
    d403a:	f000 ffc2 	bl	d4fc2 <memset>
+<<<<<<< HEAD
+=======
+    return &link_global_data_start;
+}
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
    d403e:	4801      	ldr	r0, [pc, #4]	; (d4044 <link_dynalib_end+0x28>)
    d4040:	bd08      	pop	{r3, pc}
    d4042:	bf00      	nop
@@ -67,6 +90,10 @@ Disassembly of section .text:
 
 000d4058 <module_user_init>:
    d4058:	b570      	push	{r4, r5, r6, lr}
+<<<<<<< HEAD
+=======
+    module_user_init_hook();
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
    d405a:	f000 fb09 	bl	d4670 <module_user_init_hook>
    d405e:	4c07      	ldr	r4, [pc, #28]	; (d407c <module_user_init+0x24>)
    d4060:	4b07      	ldr	r3, [pc, #28]	; (d4080 <module_user_init+0x28>)
@@ -90,8 +117,22 @@ Disassembly of section .text:
 
 000d4088 <module_user_loop>:
    d4088:	b508      	push	{r3, lr}
+<<<<<<< HEAD
    d408a:	f000 fa93 	bl	d45b4 <loop>
    d408e:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+=======
+    loop();
+   d408a:	f000 fa93 	bl	d45b4 <loop>
+    _post_loop();
+}
+   d408e:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+    setup();
+}
+
+void module_user_loop() {
+    loop();
+    _post_loop();
+>>>>>>> 9473036d70bed897070f22fb29bf4b3653d8359f
    d4092:	f000 baaf 	b.w	d45f4 <_post_loop>
 
 000d4096 <_ZdlPv>:
