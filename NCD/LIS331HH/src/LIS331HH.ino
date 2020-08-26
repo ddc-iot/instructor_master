@@ -11,9 +11,9 @@
 
 byte data[6];
 
-int xAccl = 0;
-int yAccl =  0;
-int zAccl = 0;
+int16_t xAccl = 0;
+int16_t yAccl =  0;
+int16_t zAccl = 0;
 
 float xG;
 float yG;
@@ -67,24 +67,9 @@ void loop()
     delay(300);
   }
 
-  // Convert the data
-  xAccl = ((data[1] * 256) + data[0]);
-  if (xAccl > 32767)
-  {
-    xAccl -= 65536;
-  }
-
-  yAccl = ((data[3] * 256) + data[2]);
-  if (yAccl > 32767)
-  {
-    yAccl -= 65536;
-  }
-
-  zAccl = ((data[5] * 256) + data[4]);
-  if (zAccl > 32767)
-  {
-    zAccl -= 65536;
-  }
+  xAccl = data[1]<<8 | data[0];
+  yAccl = data[3]<<8 | data[2];
+  zAccl = data[5]<<8 | data[4];
 
   // Convert to G's (Gravity = 1G = 9.8m/s^2)
   xG = xAccl/5250.0;

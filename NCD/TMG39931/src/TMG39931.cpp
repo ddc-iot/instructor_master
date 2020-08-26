@@ -3,7 +3,7 @@
 /******************************************************/
 
 #include "Particle.h"
-#line 1 "/home/brian/Particle/TMG39931/src/TMG39931.ino"
+#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/NCD/TMG39931/src/TMG39931.ino"
 /*
  * Project TMG39931
  * Description: NCD Gesture, Light, Color module 
@@ -16,8 +16,12 @@
 void setup();
 void loop();
 void tmgInit();
-#line 10 "/home/brian/Particle/TMG39931/src/TMG39931.ino"
+#line 10 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/NCD/TMG39931/src/TMG39931.ino"
 #define Addr 0x39
+
+// Declare Variables
+uint8_t data[9];
+float cData,red, green, blue, prox;
   
 void setup()
 {
@@ -30,7 +34,7 @@ void setup()
 
 void loop()
 {
-  unsigned int data[9];
+
   
   // Start I2C Transmission, Select Data Register, Stop I2C Transmission
   Wire.beginTransmission(Addr);
@@ -57,22 +61,18 @@ void loop()
    }
    
   // Convert the data
-  float cData = data[1] * 256.0 + data[0];
-  float red = data[3] * 256.0 + data[2];
-  float green = data[5] * 256.0 + data[4];
-  float blue = data[7] * 256.0 + data[6];
+  cData = data[1]<<8 | data[0];
+  red = data[3]<<8 | data[2];
+  green = data[5]<<8 | data[4];
+  blue = data[7]<<8 | data[6];
+  prox = data[8];
   
   // Output data to serial monitor       
-  Serial.print("Green Color Luminance : ");
-  Serial.println(green);
-  Serial.print("Red Color Luminance : ");
-  Serial.println(red)  ;
-  Serial.print("Blue Color Luminance : ");
-  Serial.println(blue) ;
-  Serial.print("InfraRed Luminance : ");
-  Serial.println(cData) ;
-  Serial.print("Proximity of the device : ");
-  Serial.println(data[8]);
+  Serial.printf("Green Color Luminance : %0.2f \n", green);
+  Serial.printf("Red Color Luminance : %0.2f \n", red);
+  Serial.printf("Blue Color Luminance : %0.2f \n", blue);
+  Serial.printf("Infrared Luminance : %0.2f \n", cData);
+  Serial.printf("Proximity of the device : %0.2f \n ", prox);
   delay(5000);
 }
 

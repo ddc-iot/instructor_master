@@ -8,16 +8,12 @@
 // PECMAC125A I2C address is 0x2A(42)
 #define Addr 0x2A
 
-
-SYSTEM_MODE(SEMI_AUTOMATIC);
-
-
-
 byte data[36];
 int typeOfSensor = 0;
 int maxCurrent = 0;
 int noOfChannel = 0;
 float current = 0.0;
+
 void setup()
 
 {
@@ -26,26 +22,8 @@ void setup()
   // Initialise Serial Communication, set baud rate = 9600
   Serial.begin(9600);
 
-  // Start I2C transmission
-  Wire.beginTransmission(Addr);
-  // Command header byte-1
-  Wire.write(0x92);
-  // Command header byte-2
-  Wire.write(0x6A);
-  // Command 2 is used to read no of sensor type, Max current, No. of channel
-  Wire.write(0x02);
-  // Reserved
-  Wire.write(0x00);
-  // Reserved
-  Wire.write(0x00);
-  // Reserved
-  Wire.write(0x00);
-  // Reserved
-  Wire.write(0x00);
-  // CheckSum
-  Wire.write(0xFE);
-  // Stop I2C transmission
-  Wire.endTransmission();
+  currentInit();
+
 
   // Request 6 bytes of data
   Wire.requestFrom(Addr, 6);
@@ -67,7 +45,7 @@ void setup()
   // Output data to dashboard
   Serial.printf("Type of Sensor %i \n",typeOfSensor);
   Serial.printf("Max Current: %i \n", maxCurrent);
-  Serial.printf("No. of Channels: %i 'n", noOfChannel);
+  Serial.printf("No. of Channels: %i \n", noOfChannel);
   delay(5000);
 }
 
@@ -75,7 +53,19 @@ void loop()
 {
   for (int j = 1; j < noOfChannel + 1; j++)
   {
-    // Start I2C Transmission
+    current = getCurrent(Addr,j);
+    // Output data to dashboard
+    Serial.printf("Channel: %i \n", j);
+    Serial.printf("Current Value: %0.2f \n", current); 
+  }
+}
+
+// Function to get Current reading from sensor
+float getCurrent(int address, int i) {
+
+  float current;
+
+      // Start I2C Transmission
     Wire.beginTransmission(Addr);
     // Command header byte-1
     Wire.write(0x92);
@@ -84,15 +74,15 @@ void loop()
     // Command 1
     Wire.write(0x01);
     // Start Channel No.
-    Wire.write(j);
+    Wire.write(i);
     // End Channel No.
-    Wire.write(j);
+    Wire.write(i);
     // Reserved
     Wire.write(0x00);
     // Reserved
     Wire.write(0x00);
     // CheckSum
-    Wire.write((0x92 + 0x6A + 0x01 + j + j + 0x00 + 0x00) & 0xFF);
+    Wire.write((0x92 + 0x6A + 0x01 + i + i + 0x00 + 0x00) & 0xFF);
     // Stop I2C Transmission
     Wire.endTransmission();
     delay(500);
@@ -102,16 +92,37 @@ void loop()
 
     // Read 3 bytes of data
     // msb1, msb, lsb
-    int msb1 = Wire.read();
-    int msb = Wire.read();
-    int lsb = Wire.read();
-    current = (msb1 * 65536) + (msb * 256) + lsb;
+    byte msb1 = Wire.read();
+    byte msb = Wire.read();
+    byte lsb = Wire.read();
+    current = msb1<<16 | msb<<8 | lsb;
+    //current = (msb1 * 65536) + (msb * 256) + lsb;
 
     // Convert the data to ampere
     current = current / 1000;
+    return current;
+}
 
-    // Output data to dashboard
-    Serial.printf("Channel: %i \n", j);
-    Serial.printf("Current Value: %0.2f \n", current); 
-  }
+// Initialize sensor
+void currentInit() {
+  // Start I2C transmission
+  Wire.beginTransmission(Addr);
+  // Command header byte-1
+  Wire.write(0x92);
+  // Command header byte-2
+  Wire.write(0x6A);
+  // Command 2 is used to read no of sensor type, Max current, No. of channel
+  Wire.write(0x02);
+  // Reserved
+  Wire.write(0x00);
+  // Reserved
+  Wire.write(0x00);
+  // Reserved
+  Wire.write(0x00);
+  // Reserved
+  Wire.write(0x00);
+  // CheckSum
+  Wire.write(0xFE);
+  // Stop I2C transmission
+  Wire.endTransmission();
 }
