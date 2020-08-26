@@ -25,7 +25,7 @@ void loop() {
   inVal = analogRead(inPin);
   Serial.printf("analogRead value is %i \n",inVal);
   voltage = in2volts(inVal);    // call function bits2volts
-  Serial.printf("The input voltage is %0.2f \n",voltage);
+  Serial.printf("The input voltage is %0.2f \n",voltage/2);
   delay(inputDelay);
 }
 
