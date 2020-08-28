@@ -7,7 +7,7 @@
 
 #include "Particle.h"
 
-byte error; 
+byte status; 
 byte address;
 int nDevices;
 unsigned long delayTime;
@@ -21,21 +21,21 @@ void setup() {
 
 
 void loop() {
-	Serial.printf("Scanning: \n--------- \n");
+	Serial.printf("Starting Scan: \n-------------- \n");
 	nDevices = 0;
 	for(address = 1; address < 127; address++ ) {
 		Wire.beginTransmission(address);
-		error = Wire.endTransmission();
-		if (error == 0) {
+		status = Wire.endTransmission();
+		if (status == 0) {
 			Serial.printf("I2C device found at address 0x%2x \n",address);
 			nDevices++;
-		} else if (error == 4) {
+		} else if (status == 4) {
 			Serial.printf("Unknown error at address 0x%2x \n",address);
 		}
 	}
 	if (nDevices == 0) {
 		Serial.printf("No I2C devices found\n");
 	}
-	Serial.printf("Scan Complete!\n");
+	Serial.printf("-------------- \nScan Complete!\n");
 	delay(delayTime);           // wait 5 seconds for next scan
 }

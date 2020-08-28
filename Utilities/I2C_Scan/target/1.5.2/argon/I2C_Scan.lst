@@ -7,35 +7,35 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .dynalib      00000004  000d4018  000d4018  00004018  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  2 .text         00001754  000d401c  000d401c  0000401c  2**2
+  2 .text         00001774  000d401c  000d401c  0000401c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  3 .backup       00000004  2003f400  000d5770  0000f400  2**2
+  3 .backup       00000004  2003f400  000d5790  0000f400  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .data         00000068  2003e364  000d5774  0001e364  2**2
+  4 .data         00000068  2003e364  000d5794  0001e364  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   5 .bss          00000424  2003e3cc  2003e3cc  0002e3cc  2**2
                   ALLOC
-  6 .module_info_suffix 00000028  000d57dc  000d57dc  000257dc  2**0
+  6 .module_info_suffix 00000028  000d57fc  000d57fc  000257fc  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .module_info_crc 00000004  000d5804  000d5804  00025804  2**0
+  7 .module_info_crc 00000004  000d5824  000d5824  00025824  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .debug_info   000e49fc  00000000  00000000  00025808  2**0
+  8 .debug_info   000e49fc  00000000  00000000  00025828  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_abbrev 0001217d  00000000  00000000  0010a204  2**0
+  9 .debug_abbrev 0001217d  00000000  00000000  0010a224  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00024218  00000000  00000000  0011c381  2**0
+ 10 .debug_loc    00024218  00000000  00000000  0011c3a1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_aranges 00002548  00000000  00000000  00140599  2**0
+ 11 .debug_aranges 00002548  00000000  00000000  001405b9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000049b8  00000000  00000000  00142ae1  2**0
+ 12 .debug_ranges 000049b8  00000000  00000000  00142b01  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  00039021  00000000  00000000  00147499  2**0
+ 13 .debug_macro  00039021  00000000  00000000  001474b9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   0002f60f  00000000  00000000  001804ba  2**0
+ 14 .debug_line   0002f60f  00000000  00000000  001804da  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    0010611d  00000000  00000000  001afac9  2**0
+ 15 .debug_str    0010611e  00000000  00000000  001afae9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  0000d3b0  00000000  00000000  002b5be8  2**2
+ 16 .debug_frame  0000d3b0  00000000  00000000  002b5c08  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -81,7 +81,7 @@ void* module_user_pre_init() {
    d4040:	bd08      	pop	{r3, pc}
    d4042:	bf00      	nop
    d4044:	2003e364 	.word	0x2003e364
-   d4048:	000d5774 	.word	0x000d5774
+   d4048:	000d5794 	.word	0x000d5794
    d404c:	2003e3cc 	.word	0x2003e3cc
    d4050:	2003e3cc 	.word	0x2003e3cc
    d4054:	2003e7f0 	.word	0x2003e7f0
@@ -126,8 +126,8 @@ void module_user_init()
 }
    d4078:	bd70      	pop	{r4, r5, r6, pc}
    d407a:	bf00      	nop
-   d407c:	000d576c 	.word	0x000d576c
-   d4080:	000d571c 	.word	0x000d571c
+   d407c:	000d5788 	.word	0x000d5788
+   d4080:	000d5738 	.word	0x000d5738
 
 000d4084 <module_user_setup>:
 
@@ -188,12 +188,12 @@ void __cxa_guard_release (__guard *g) {*(char *)g = 1;};
 	...
 
 000d40b0 <setup>:
+byte status; 
 byte address;
 int nDevices;
 unsigned long delayTime;
 
-void setup()
-{
+void setup() {
    d40b0:	b508      	push	{r3, lr}
 	Wire.begin();
    d40b2:	f000 ff8f 	bl	d4fd4 <_Z19__fetch_global_Wirev>
@@ -212,8 +212,8 @@ void setup()
    d40d6:	4902      	ldr	r1, [pc, #8]	; (d40e0 <setup+0x30>)
 }
    d40d8:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
-void setup()
-{
+
+void setup() {
 	Wire.begin();
 	Serial.begin(9600);
 	while(!Serial);    // time to get serial running
@@ -225,10 +225,9 @@ void setup()
 }
 
 
-void loop()
-{
+void loop() {
    d40e4:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-	Serial.printf("Scanning: \n--------- \n");
+	Serial.printf("Starting Scan: \n-------------- \n");
    d40e8:	f000 fcc8 	bl	d4a7c <_Z16_fetch_usbserialv>
 	nDevices = 0;
    d40ec:	4d24      	ldr	r5, [pc, #144]	; (d4180 <loop+0x9c>)
@@ -242,15 +241,15 @@ void loop()
 	for(address = 1; address < 127; address++ ) {
    d40f0:	4c25      	ldr	r4, [pc, #148]	; (d4188 <loop+0xa4>)
 		Wire.beginTransmission(address);
-		error = Wire.endTransmission();
+		status = Wire.endTransmission();
    d40f2:	f8df 80ac 	ldr.w	r8, [pc, #172]	; d41a0 <loop+0xbc>
    d40f6:	2100      	movs	r1, #0
    d40f8:	f000 faf1 	bl	d46de <_ZN5Print11printf_implEbPKcz>
+}
 
 
-void loop()
-{
-	Serial.printf("Scanning: \n--------- \n");
+void loop() {
+	Serial.printf("Starting Scan: \n-------------- \n");
 	nDevices = 0;
    d40fc:	2300      	movs	r3, #0
    d40fe:	602b      	str	r3, [r5, #0]
@@ -265,13 +264,12 @@ void loop()
    d410c:	f000 ff62 	bl	d4fd4 <_Z19__fetch_global_Wirev>
    d4110:	7839      	ldrb	r1, [r7, #0]
    d4112:	f000 fd9b 	bl	d4c4c <_ZN7TwoWire17beginTransmissionEh>
-		error = Wire.endTransmission();
+		status = Wire.endTransmission();
    d4116:	f000 ff5d 	bl	d4fd4 <_Z19__fetch_global_Wirev>
    d411a:	f000 fd9f 	bl	d4c5c <_ZN7TwoWire15endTransmissionEv>
    d411e:	4606      	mov	r6, r0
    d4120:	f888 0000 	strb.w	r0, [r8]
-
-		if (error == 0) {
+		if (status == 0) {
    d4124:	b950      	cbnz	r0, d413c <loop+0x58>
 			Serial.printf("I2C device found at address 0x%2x \n",address);
    d4126:	f000 fca9 	bl	d4a7c <_Z16_fetch_usbserialv>
@@ -284,7 +282,7 @@ void loop()
    d4136:	3301      	adds	r3, #1
    d4138:	602b      	str	r3, [r5, #0]
    d413a:	e008      	b.n	d414e <loop+0x6a>
-		} else if (error==4) {
+		} else if (status == 4) {
    d413c:	2804      	cmp	r0, #4
    d413e:	d106      	bne.n	d414e <loop+0x6a>
 			Serial.printf("Unknown error at address 0x%2x \n",address);
@@ -294,9 +292,9 @@ void loop()
    d4148:	2100      	movs	r1, #0
    d414a:	f000 fac8 	bl	d46de <_ZN5Print11printf_implEbPKcz>
 
-void loop()
-{
-	Serial.printf("Scanning: \n--------- \n");
+
+void loop() {
+	Serial.printf("Starting Scan: \n-------------- \n");
 	nDevices = 0;
 	for(address = 1; address < 127; address++ ) {
    d414e:	7823      	ldrb	r3, [r4, #0]
@@ -304,7 +302,7 @@ void loop()
    d4152:	7023      	strb	r3, [r4, #0]
    d4154:	e7d7      	b.n	d4106 <loop+0x22>
 			nDevices++;
-		} else if (error==4) {
+		} else if (status == 4) {
 			Serial.printf("Unknown error at address 0x%2x \n",address);
 		}
 	}
@@ -317,7 +315,7 @@ void loop()
    d4160:	4621      	mov	r1, r4
    d4162:	f000 fabc 	bl	d46de <_ZN5Print11printf_implEbPKcz>
 	}
-	Serial.printf("Scan Complete!\n");
+	Serial.printf("-------------- \nScan Complete!\n");
    d4166:	f000 fc89 	bl	d4a7c <_Z16_fetch_usbserialv>
    d416a:	4a0b      	ldr	r2, [pc, #44]	; (d4198 <loop+0xb4>)
    d416c:	2100      	movs	r1, #0
@@ -329,22 +327,22 @@ void loop()
 	if (nDevices == 0) {
 		Serial.printf("No I2C devices found\n");
 	}
-	Serial.printf("Scan Complete!\n");
+	Serial.printf("-------------- \nScan Complete!\n");
 	delay(delayTime);           // wait 5 seconds for next scan
    d4178:	6818      	ldr	r0, [r3, #0]
    d417a:	f000 bafd 	b.w	d4778 <delay>
    d417e:	bf00      	nop
    d4180:	2003e3d4 	.word	0x2003e3d4
    d4184:	000d53b9 	.word	0x000d53b9
-   d4188:	2003e3d9 	.word	0x2003e3d9
-   d418c:	000d53d0 	.word	0x000d53d0
-   d4190:	000d53f4 	.word	0x000d53f4
-   d4194:	000d5415 	.word	0x000d5415
-   d4198:	000d542b 	.word	0x000d542b
+   d4188:	2003e3d8 	.word	0x2003e3d8
+   d418c:	000d53da 	.word	0x000d53da
+   d4190:	000d53fe 	.word	0x000d53fe
+   d4194:	000d541f 	.word	0x000d541f
+   d4198:	000d5435 	.word	0x000d5435
    d419c:	2003e3d0 	.word	0x2003e3d0
-   d41a0:	2003e3d8 	.word	0x2003e3d8
+   d41a0:	2003e3d9 	.word	0x2003e3d9
 
-000d41a4 <_GLOBAL__sub_I_error>:
+000d41a4 <_GLOBAL__sub_I_status>:
 
 inline void pinSetFast(pin_t _pin) __attribute__((always_inline));
 inline void pinResetFast(pin_t _pin) __attribute__((always_inline));
@@ -1144,7 +1142,7 @@ public:
    d4588:	601a      	str	r2, [r3, #0]
    d458a:	4770      	bx	lr
    d458c:	2003e3dc 	.word	0x2003e3dc
-   d4590:	000d5444 	.word	0x000d5444
+   d4590:	000d5460 	.word	0x000d5460
 
 000d4594 <_ZN17SystemSleepResult22freeWakeupSourceMemoryEv.isra.2>:
     operator SleepResult() {
@@ -1699,7 +1697,7 @@ inline spark::Logger::Logger(const char *name) :
    d4758:	601a      	str	r2, [r3, #0]
    d475a:	4770      	bx	lr
    d475c:	2003e3f4 	.word	0x2003e3f4
-   d4760:	000d54e3 	.word	0x000d54e3
+   d4760:	000d54ff 	.word	0x000d54ff
 
 000d4764 <_GLOBAL__sub_I_TIME_FORMAT_DEFAULT>:
             calendar_time_cache = Convert_UnixTime_To_CalendarTime(unix_time);
@@ -1885,7 +1883,7 @@ void system_initialize_user_backup_ram()
    d4810:	f000 bd7e 	b.w	d5310 <memcpy>
    d4814:	2003f400 	.word	0x2003f400
    d4818:	2003f404 	.word	0x2003f404
-   d481c:	000d5770 	.word	0x000d5770
+   d481c:	000d5790 	.word	0x000d5790
 
 000d4820 <_Z27ctrl_request_custom_handlerP12ctrl_request>:
 bool __backup_ram_was_valid() { return false; }
@@ -2189,7 +2187,7 @@ IPAddress::IPAddress()
    d494e:	4620      	mov	r0, r4
    d4950:	bd10      	pop	{r4, pc}
    d4952:	bf00      	nop
-   d4954:	000d5584 	.word	0x000d5584
+   d4954:	000d55a0 	.word	0x000d55a0
 
 000d4958 <_ZN9IPAddressC1ERK16_HAL_IPAddress_t>:
 
@@ -2209,7 +2207,7 @@ IPAddress::IPAddress(const HAL_IPAddress& address)
    d4974:	701a      	strb	r2, [r3, #0]
 }
    d4976:	bd10      	pop	{r4, pc}
-   d4978:	000d5584 	.word	0x000d5584
+   d4978:	000d55a0 	.word	0x000d55a0
 
 000d497c <_ZN9IPAddress8set_ipv4Ehhhh>:
     return address.ipv4!=0;
@@ -2439,7 +2437,7 @@ USBSerial::USBSerial(HAL_USB_USART_Serial serial, const HAL_USB_USART_Config& co
 }
    d4a50:	4620      	mov	r0, r4
    d4a52:	bd10      	pop	{r4, pc}
-   d4a54:	000d5598 	.word	0x000d5598
+   d4a54:	000d55b4 	.word	0x000d55b4
 
 000d4a58 <_ZN9USBSerial5beginEl>:
 // Public methods
@@ -2720,7 +2718,7 @@ USARTSerial::USARTSerial(HAL_USART_Serial serial, Ring_Buffer *rx_buffer, Ring_B
    d4b6e:	4620      	mov	r0, r4
    d4b70:	bd10      	pop	{r4, pc}
    d4b72:	bf00      	nop
-   d4b74:	000d55c8 	.word	0x000d55c8
+   d4b74:	000d55e4 	.word	0x000d55e4
 
 000d4b78 <_Z22__fetch_global_Serial1v>:
 static Ring_Buffer* serial1_rx_buffer = NULL;
@@ -2908,7 +2906,7 @@ TwoWire::TwoWire(HAL_I2C_Interface i2c, const HAL_I2C_Config& conf)
 }
    d4c38:	4620      	mov	r0, r4
    d4c3a:	bd10      	pop	{r4, pc}
-   d4c3c:	000d55f8 	.word	0x000d55f8
+   d4c3c:	000d5614 	.word	0x000d5614
 
 000d4c40 <_ZN7TwoWire5beginEv>:
   HAL_I2C_Stretch_Clock(_i2c, stretch, NULL);
@@ -3315,7 +3313,7 @@ class MeshClass : public NetworkClass, public MeshPublish {
    d4d82:	4620      	mov	r0, r4
    d4d84:	bd10      	pop	{r4, pc}
    d4d86:	bf00      	nop
-   d4d88:	000d5620 	.word	0x000d5620
+   d4d88:	000d563c 	.word	0x000d563c
 
 000d4d8c <_GLOBAL__sub_I__ZN5spark11MeshPublish13Subscriptions20event_handler_existsEPKcPFvS3_S3_EPvN17SubscriptionScope4EnumES3_>:
 
@@ -3389,8 +3387,8 @@ MeshClass Mesh;
    d4dc2:	f000 b92d 	b.w	d5020 <__aeabi_atexit>
    d4dc6:	bf00      	nop
    d4dc8:	2003e54c 	.word	0x2003e54c
-   d4dcc:	000d5688 	.word	0x000d5688
-   d4dd0:	000d5620 	.word	0x000d5620
+   d4dcc:	000d56a4 	.word	0x000d56a4
+   d4dd0:	000d563c 	.word	0x000d563c
    d4dd4:	2003e3cc 	.word	0x2003e3cc
    d4dd8:	000d4d75 	.word	0x000d4d75
 
@@ -3529,7 +3527,7 @@ public:
    d4e4c:	601a      	str	r2, [r3, #0]
    d4e4e:	4770      	bx	lr
    d4e50:	2003e720 	.word	0x2003e720
-   d4e54:	000d5654 	.word	0x000d5654
+   d4e54:	000d5670 	.word	0x000d5670
 
 000d4e58 <_ZN5spark12NetworkClass7connectEj>:
         return Network;
@@ -3832,7 +3830,7 @@ class IPAddress : public Printable {
    d4f94:	605a      	str	r2, [r3, #4]
    d4f96:	4770      	bx	lr
    d4f98:	2003e728 	.word	0x2003e728
-   d4f9c:	000d5688 	.word	0x000d5688
+   d4f9c:	000d56a4 	.word	0x000d56a4
 
 000d4fa0 <_Z17acquireWireBufferv>:
    d4fa0:	b570      	push	{r4, r5, r6, lr}
@@ -3856,7 +3854,7 @@ class IPAddress : public Printable {
    d4fca:	60e0      	str	r0, [r4, #12]
    d4fcc:	4620      	mov	r0, r4
    d4fce:	bd70      	pop	{r4, r5, r6, pc}
-   d4fd0:	000d56b4 	.word	0x000d56b4
+   d4fd0:	000d56d0 	.word	0x000d56d0
 
 000d4fd4 <_Z19__fetch_global_Wirev>:
 	return defaultWireConfig();
@@ -4318,115 +4316,116 @@ TwoWire& __fetch_global_Wire()
 000d5398 <dynalib_user>:
    d5398:	401d 000d 4059 000d 4085 000d 4089 000d     .@..Y@...@...@..
    d53a8:	0000 0000 490a 4332 5320 6163 6e6e 7265     .....I2C Scanner
-   d53b8:	5300 6163 6e6e 6e69 3a67 0a20 2d2d 2d2d     .Scanning: .----
-   d53c8:	2d2d 2d2d 202d 000a 3249 2043 6564 6976     ----- ..I2C devi
-   d53d8:	6563 6620 756f 646e 6120 2074 6461 7264     ce found at addr
-   d53e8:	7365 2073 7830 3225 2078 000a 6e55 6e6b     ess 0x%2x ..Unkn
-   d53f8:	776f 206e 7265 6f72 2072 7461 6120 6464     own error at add
-   d5408:	6572 7373 3020 2578 7832 0a20 4e00 206f     ress 0x%2x ..No 
-   d5418:	3249 2043 6564 6976 6563 2073 6f66 6e75     I2C devices foun
-   d5428:	0a64 5300 6163 206e 6f43 706d 656c 6574     d..Scan Complete
-   d5438:	0a21 0000                                   !...
+   d53b8:	5300 6174 7472 6e69 2067 6353 6e61 203a     .Starting Scan: 
+   d53c8:	2d0a 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 202d     .-------------- 
+   d53d8:	000a 3249 2043 6564 6976 6563 6620 756f     ..I2C device fou
+   d53e8:	646e 6120 2074 6461 7264 7365 2073 7830     nd at address 0x
+   d53f8:	3225 2078 000a 6e55 6e6b 776f 206e 7265     %2x ..Unknown er
+   d5408:	6f72 2072 7461 6120 6464 6572 7373 3020     ror at address 0
+   d5418:	2578 7832 0a20 4e00 206f 3249 2043 6564     x%2x ..No I2C de
+   d5428:	6976 6563 2073 6f66 6e75 0a64 2d00 2d2d     vices found..---
+   d5438:	2d2d 2d2d 2d2d 2d2d 2d2d 202d 530a 6163     ----------- .Sca
+   d5448:	206e 6f43 706d 656c 6574 0a21 0000 0000     n Complete!.....
 
-000d543c <_ZTVN5spark13EthernetClassE>:
+000d5458 <_ZTVN5spark13EthernetClassE>:
 	...
-   d5444:	4577 000d 456d 000d 4563 000d 4559 000d     wE..mE..cE..YE..
-   d5454:	454d 000d 4541 000d 4535 000d 452d 000d     ME..AE..5E..-E..
-   d5464:	4523 000d 4519 000d 4ec1 000d 6162 6475     #E...E...N..baud
-   d5474:	5300 7265 6169 006c 6553 6972 6c61 0031     .Serial.Serial1.
-   d5484:	7974 6570 7000 7261 6d61 6300 646d 6900     type.param.cmd.i
-   d5494:	0064 6e68 0064 7473 6d72 6600 6c69 0074     d.hnd.strm.filt.
-   d54a4:	766c 006c 6461 4864 6e61 6c64 7265 7200     lvl.addHandler.r
-   d54b4:	6d65 766f 4865 6e61 6c64 7265 6500 756e     emoveHandler.enu
-   d54c4:	486d 6e61 6c64 7265 0073 534a 4e4f 7453     mHandlers.JSONSt
-   d54d4:	6572 6d61 6f4c 4867 6e61 6c64 7265 6100     reamLogHandler.a
-   d54e4:	7070 2500 3130 7530 0020 205d 2500 0064     pp.%010u .] .%d.
-   d54f4:	202c 2800 3a29 0020 5b20 6300 646f 2065     , .(): . [.code 
-   d5504:	203d 2500 0069 6564 6174 6c69 2073 203d     = .%i.details = 
-   d5514:	0d00 000a 0066 6e6c 6600 006e 6f63 6564     ....f.ln.fn.code
-   d5524:	6400 7465 6961 006c 6f6e 656e 7400 6172     .detail.none.tra
-   d5534:	6563 6900 666e 006f 6177 6e72 6500 7272     ce.info.warn.err
-   d5544:	726f 7000 6e61 6369 6100 6c6c 5a00 2500     or.panic.all.Z.%
-   d5554:	302b 6433 253a 3230 0075 5925 252d 2d6d     +03d:%02u.%Y-%m-
-   d5564:	6425 2554 3a48 4d25 253a 2553 007a 7361     %dT%H:%M:%S%z.as
-   d5574:	7463 6d69 0065 0000                         ctime...
+   d5460:	4577 000d 456d 000d 4563 000d 4559 000d     wE..mE..cE..YE..
+   d5470:	454d 000d 4541 000d 4535 000d 452d 000d     ME..AE..5E..-E..
+   d5480:	4523 000d 4519 000d 4ec1 000d 6162 6475     #E...E...N..baud
+   d5490:	5300 7265 6169 006c 6553 6972 6c61 0031     .Serial.Serial1.
+   d54a0:	7974 6570 7000 7261 6d61 6300 646d 6900     type.param.cmd.i
+   d54b0:	0064 6e68 0064 7473 6d72 6600 6c69 0074     d.hnd.strm.filt.
+   d54c0:	766c 006c 6461 4864 6e61 6c64 7265 7200     lvl.addHandler.r
+   d54d0:	6d65 766f 4865 6e61 6c64 7265 6500 756e     emoveHandler.enu
+   d54e0:	486d 6e61 6c64 7265 0073 534a 4e4f 7453     mHandlers.JSONSt
+   d54f0:	6572 6d61 6f4c 4867 6e61 6c64 7265 6100     reamLogHandler.a
+   d5500:	7070 2500 3130 7530 0020 205d 2500 0064     pp.%010u .] .%d.
+   d5510:	202c 2800 3a29 0020 5b20 6300 646f 2065     , .(): . [.code 
+   d5520:	203d 2500 0069 6564 6174 6c69 2073 203d     = .%i.details = 
+   d5530:	0d00 000a 0066 6e6c 6600 006e 6f63 6564     ....f.ln.fn.code
+   d5540:	6400 7465 6961 006c 6f6e 656e 7400 6172     .detail.none.tra
+   d5550:	6563 6900 666e 006f 6177 6e72 6500 7272     ce.info.warn.err
+   d5560:	726f 7000 6e61 6369 6100 6c6c 5a00 2500     or.panic.all.Z.%
+   d5570:	302b 6433 253a 3230 0075 5925 252d 2d6d     +03d:%02u.%Y-%m-
+   d5580:	6425 2554 3a48 4d25 253a 2553 007a 7361     %dT%H:%M:%S%z.as
+   d5590:	7463 6d69 0065 0000                         ctime...
 
-000d557c <_ZTV9IPAddress>:
+000d5598 <_ZTV9IPAddress>:
 	...
-   d5584:	48d9 000d 48c9 000d 48cb 000d               .H...H...H..
+   d55a0:	48d9 000d 48c9 000d 48cb 000d               .H...H...H..
 
-000d5590 <_ZTV9USBSerial>:
+000d55ac <_ZTV9USBSerial>:
 	...
-   d5598:	49b1 000d 4a01 000d 4a0f 000d 4621 000d     .I...J...J..!F..
-   d55a8:	49ed 000d 49b3 000d 49c9 000d 49fb 000d     .I...I...I...I..
-   d55b8:	49df 000d 49ad 000d                         .I...I..
+   d55b4:	49b1 000d 4a01 000d 4a0f 000d 4621 000d     .I...J...J..!F..
+   d55c4:	49ed 000d 49b3 000d 49c9 000d 49fb 000d     .I...I...I...I..
+   d55d4:	49df 000d 49ad 000d                         .I...I..
 
-000d55c0 <_ZTV11USARTSerial>:
+000d55dc <_ZTV11USARTSerial>:
 	...
-   d55c8:	4ac9 000d 4b19 000d 4b27 000d 4621 000d     .J...K..'K..!F..
-   d55d8:	4add 000d 4aff 000d 4aeb 000d 4b13 000d     .J...J...J...K..
-   d55e8:	4acb 000d 4acf 000d                         .J...J..
+   d55e4:	4ac9 000d 4b19 000d 4b27 000d 4621 000d     .J...K..'K..!F..
+   d55f4:	4add 000d 4aff 000d 4aeb 000d 4b13 000d     .J...J...J...K..
+   d5604:	4acb 000d 4acf 000d                         .J...J..
 
-000d55f0 <_ZTV7TwoWire>:
+000d560c <_ZTV7TwoWire>:
 	...
-   d55f8:	4bc5 000d 4c0f 000d 4be7 000d 4bc7 000d     .K...L...K...K..
-   d5608:	4bef 000d 4bf7 000d 4bff 000d 4c07 000d     .K...K...K...L..
+   d5614:	4bc5 000d 4c0f 000d 4be7 000d 4bc7 000d     .K...L...K...K..
+   d5624:	4bef 000d 4bf7 000d 4bff 000d 4c07 000d     .K...K...K...L..
 
-000d5618 <_ZTVN5spark9MeshClassE>:
+000d5634 <_ZTVN5spark9MeshClassE>:
 	...
-   d5620:	4cc1 000d 4cb7 000d 4cad 000d 4ca3 000d     .L...L...L...L..
-   d5630:	4c97 000d 4c8b 000d 4c7f 000d 4c77 000d     .L...L...L..wL..
-   d5640:	4c6d 000d 4c63 000d 4ec1 000d               mL..cL...N..
+   d563c:	4cc1 000d 4cb7 000d 4cad 000d 4ca3 000d     .L...L...L...L..
+   d564c:	4c97 000d 4c8b 000d 4c7f 000d 4c77 000d     .L...L...L..wL..
+   d565c:	4c6d 000d 4c63 000d 4ec1 000d               mL..cL...N..
 
-000d564c <_ZTVN5spark9WiFiClassE>:
+000d5668 <_ZTVN5spark9WiFiClassE>:
 	...
-   d5654:	4e3b 000d 4e31 000d 4e27 000d 4ddd 000d     ;N..1N..'N...M..
-   d5664:	4e1b 000d 4e0f 000d 4e03 000d 4dfb 000d     .N...N...N...M..
-   d5674:	4df1 000d 4de7 000d 4ec1 000d               .M...M...N..
+   d5670:	4e3b 000d 4e31 000d 4e27 000d 4ddd 000d     ;N..1N..'N...M..
+   d5680:	4e1b 000d 4e0f 000d 4e03 000d 4dfb 000d     .N...N...N...M..
+   d5690:	4df1 000d 4de7 000d 4ec1 000d               .M...M...N..
 
-000d5680 <_ZTVN5spark12NetworkClassE>:
+000d569c <_ZTVN5spark12NetworkClassE>:
 	...
-   d5688:	4e59 000d 4e63 000d 4e6d 000d 4e77 000d     YN..cN..mN..wN..
-   d5698:	4e81 000d 4e8d 000d 4e99 000d 4ea5 000d     .N...N...N...N..
-   d56a8:	4ead 000d 4eb7 000d 4ec1 000d               .N...N...N..
+   d56a4:	4e59 000d 4e63 000d 4e6d 000d 4e77 000d     YN..cN..mN..wN..
+   d56b4:	4e81 000d 4e8d 000d 4e99 000d 4ea5 000d     .N...N...N...N..
+   d56c4:	4ead 000d 4eb7 000d 4ec1 000d               .N...N...N..
 
-000d56b4 <_ZSt7nothrow>:
-   d56b4:	0000 0000                                   ....
+000d56d0 <_ZSt7nothrow>:
+   d56d0:	0000 0000                                   ....
 
-000d56b8 <__sf_fake_stdin>:
-	...
-
-000d56d8 <__sf_fake_stdout>:
+000d56d4 <__sf_fake_stdin>:
 	...
 
-000d56f8 <__sf_fake_stderr>:
-	...
-   d5718:	0043                                        C.
-
-000d571a <link_const_variable_data_end>:
+000d56f4 <__sf_fake_stdout>:
 	...
 
-000d571c <link_constructors_location>:
-   d571c:	000d41a5 	.word	0x000d41a5
-   d5720:	000d41a9 	.word	0x000d41a9
-   d5724:	000d41ad 	.word	0x000d41ad
-   d5728:	000d41b1 	.word	0x000d41b1
-   d572c:	000d41b5 	.word	0x000d41b5
-   d5730:	000d41b9 	.word	0x000d41b9
-   d5734:	000d41bd 	.word	0x000d41bd
-   d5738:	000d4581 	.word	0x000d4581
-   d573c:	000d45b5 	.word	0x000d45b5
-   d5740:	000d45f9 	.word	0x000d45f9
-   d5744:	000d4755 	.word	0x000d4755
-   d5748:	000d4765 	.word	0x000d4765
-   d574c:	000d479d 	.word	0x000d479d
-   d5750:	000d4d8d 	.word	0x000d4d8d
-   d5754:	000d4e45 	.word	0x000d4e45
-   d5758:	000d4f8d 	.word	0x000d4f8d
-   d575c:	000d5065 	.word	0x000d5065
-   d5760:	000d50e9 	.word	0x000d50e9
-   d5764:	000d51ad 	.word	0x000d51ad
-   d5768:	000d5271 	.word	0x000d5271
+000d5714 <__sf_fake_stderr>:
+	...
+   d5734:	0043                                        C.
 
-000d576c <link_constructors_end>:
-   d576c:	00000000 	.word	0x00000000
+000d5736 <link_const_variable_data_end>:
+	...
+
+000d5738 <link_constructors_location>:
+   d5738:	000d41a5 	.word	0x000d41a5
+   d573c:	000d41a9 	.word	0x000d41a9
+   d5740:	000d41ad 	.word	0x000d41ad
+   d5744:	000d41b1 	.word	0x000d41b1
+   d5748:	000d41b5 	.word	0x000d41b5
+   d574c:	000d41b9 	.word	0x000d41b9
+   d5750:	000d41bd 	.word	0x000d41bd
+   d5754:	000d4581 	.word	0x000d4581
+   d5758:	000d45b5 	.word	0x000d45b5
+   d575c:	000d45f9 	.word	0x000d45f9
+   d5760:	000d4755 	.word	0x000d4755
+   d5764:	000d4765 	.word	0x000d4765
+   d5768:	000d479d 	.word	0x000d479d
+   d576c:	000d4d8d 	.word	0x000d4d8d
+   d5770:	000d4e45 	.word	0x000d4e45
+   d5774:	000d4f8d 	.word	0x000d4f8d
+   d5778:	000d5065 	.word	0x000d5065
+   d577c:	000d50e9 	.word	0x000d50e9
+   d5780:	000d51ad 	.word	0x000d51ad
+   d5784:	000d5271 	.word	0x000d5271
+
+000d5788 <link_constructors_end>:
+	...
