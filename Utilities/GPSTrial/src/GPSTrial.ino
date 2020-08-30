@@ -62,7 +62,7 @@ void loop()
 
 void displayInfo() {
 	float lat,lon,alt;
-	uint8_t hr,mn,se;
+	uint8_t hr,mn,se,sat;
 	if (millis() - lastSerial >= SERIAL_PERIOD) {
 		lastSerial = millis();
 
@@ -74,6 +74,7 @@ void displayInfo() {
 			hr = gps.time.hour();
 			mn = gps.time.minute();
 			se = gps.time.second();
+			sat = gps.satellites.value();
 
 			if(hr > 7) {
 				hr = hr + UTC_offset;
@@ -81,6 +82,7 @@ void displayInfo() {
 			else {
 				hr = hr + 24 + UTC_offset;
 			}
+			Serial.printf("%i satellites in view --- ",sat);
 			Serial.printf("Time: %02i:%02i:%02i --- ",hr,mn,se);
 			Serial.printf("lat: %f, long: %f, alt: %f \n", lat,lon,alt);
 			if (gettingFix) {
@@ -92,6 +94,7 @@ void displayInfo() {
 			display.setCursor(0,0);
 			display.printf("Time: %02i:%02i:%02i \n",hr,mn,se);
 			display.printf("lat  %f \nlong %f \nalt %f\n", lat,lon,alt);
+			display.printf("Satellites in view: %i \n",sat);
 			display.display();
 		}
 		else {

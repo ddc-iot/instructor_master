@@ -2,16 +2,22 @@
 //       THIS IS A GENERATED FILE - DO NOT EDIT       //
 /******************************************************/
 
-#line 1 "c:/Users/IoTPa/Documents/TSL/GPSTracker/GPSTrial/src/GPSTrial.ino"
+#line 1 "c:/Users/IoTPa/Documents/IoT/cohort2/instructor_master/Utilities/GPSTrial/src/GPSTrial.ino"
 /*
  * Project GPSTrial
  * Description: Trial Program to Use TinyGPS++ on the Particle Argon with Display to OLED
- * Author:
- * Date:
+ * Author: Brian Rashap
+ * Date: 28-AUG-2020
  */
 
 #include "Particle.h"
 #include "TinyGPS++.h"
+
+/*
+ * GPS Module Connections
+ * GPS Unit Rx connects to Argon Pin D9  (UART1_TX)
+ * GPS Unit Tx connects to Argon Pin D10 (UART1_RX)
+*/
 
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
@@ -20,7 +26,7 @@ void setup();
 void loop();
 void displayInfo();
 void helloWorld();
-#line 14 "c:/Users/IoTPa/Documents/TSL/GPSTracker/GPSTrial/src/GPSTrial.ino"
+#line 20 "c:/Users/IoTPa/Documents/IoT/cohort2/instructor_master/Utilities/GPSTrial/src/GPSTrial.ino"
 #define OLED_RESET D4
 Adafruit_SSD1306 display(OLED_RESET);
 
@@ -66,7 +72,7 @@ void loop()
 
 void displayInfo() {
 	float lat,lon,alt;
-	uint8_t hr,mn,se;
+	uint8_t hr,mn,se,sat;
 	if (millis() - lastSerial >= SERIAL_PERIOD) {
 		lastSerial = millis();
 
@@ -78,6 +84,7 @@ void displayInfo() {
 			hr = gps.time.hour();
 			mn = gps.time.minute();
 			se = gps.time.second();
+			sat = gps.satellites.value();
 
 			if(hr > 7) {
 				hr = hr + UTC_offset;
@@ -85,6 +92,7 @@ void displayInfo() {
 			else {
 				hr = hr + 24 + UTC_offset;
 			}
+			Serial.printf("%i satellites in view --- ",sat);
 			Serial.printf("Time: %02i:%02i:%02i --- ",hr,mn,se);
 			Serial.printf("lat: %f, long: %f, alt: %f \n", lat,lon,alt);
 			if (gettingFix) {
@@ -96,6 +104,7 @@ void displayInfo() {
 			display.setCursor(0,0);
 			display.printf("Time: %02i:%02i:%02i \n",hr,mn,se);
 			display.printf("lat  %f \nlong %f \nalt %f\n", lat,lon,alt);
+			display.printf("Satellites in view: %i \n",sat);
 			display.display();
 		}
 		else {
