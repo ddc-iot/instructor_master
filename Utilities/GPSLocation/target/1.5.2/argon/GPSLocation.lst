@@ -29,13 +29,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_ranges 00003f20  00000000  00000000  0012430d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  00032f3f  00000000  00000000  0012822d  2**0
+ 13 .debug_macro  00032f1b  00000000  00000000  0012822d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   0002655c  00000000  00000000  0015b16c  2**0
+ 14 .debug_line   000264cd  00000000  00000000  0015b148  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    00106801  00000000  00000000  001816c8  2**0
+ 15 .debug_str    00106801  00000000  00000000  00181615  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  0000c2e4  00000000  00000000  00287ecc  2**2
+ 16 .debug_frame  0000c2e4  00000000  00000000  00287e18  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -469,10 +469,10 @@ inline int32_t pinReadFast(pin_t _pin) __attribute__((always_inline));
 
 static Hal_Pin_Info* PIN_MAP = HAL_Pin_Map();
    d4246:	f000 fbb3 	bl	d49b0 <HAL_Pin_Map>
+ * GPS Module Connections
+ * GPS Unit Rx connects to Argon Pin D9  (UART1_TX)
+ * GPS Unit Tx connects to Argon Pin D10 (UART1_RX)
 */
-
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1306.h"
 
 SYSTEM_THREAD(ENABLED);
    d424a:	2001      	movs	r0, #1

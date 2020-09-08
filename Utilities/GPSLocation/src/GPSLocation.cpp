@@ -19,13 +19,10 @@
  * GPS Unit Tx connects to Argon Pin D10 (UART1_RX)
 */
 
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1306.h"
-
 void setup();
 void loop();
 void displayInfo();
-#line 20 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/GPSLocation/src/GPSLocation.ino"
+#line 17 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/GPSLocation/src/GPSLocation.ino"
 SYSTEM_THREAD(ENABLED);
 
 const unsigned long PUBLISH_PERIOD = 120000;
