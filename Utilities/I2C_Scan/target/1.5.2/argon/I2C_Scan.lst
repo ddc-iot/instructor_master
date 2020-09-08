@@ -1,5 +1,5 @@
 
-c:/Users/IoTPa/Documents/IoT/cohort2/instructor_master/Utilities/I2C_Scan/target/1.5.2/argon/I2C_Scan.elf:     file format elf32-littlearm
+c:/Users/IoT_Instructor/Documents/IoT/instructor_master/Utilities/I2C_Scan/target/1.5.2/argon/I2C_Scan.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -31,52 +31,31 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  13 .debug_macro  00039021  00000000  00000000  001474b9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   0002f60f  00000000  00000000  001804da  2**0
+ 14 .debug_line   0003017a  00000000  00000000  001804da  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    0010611e  00000000  00000000  001afae9  2**0
+ 15 .debug_str    00106215  00000000  00000000  001b0654  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  0000d3b0  00000000  00000000  002b5c08  2**2
+ 16 .debug_frame  0000d3b0  00000000  00000000  002b686c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 000d401c <module_user_pre_init>:
-/**
- * Initializes this user module. Returns the start of the heap.
- */
-void* module_user_pre_init() {
-
-    if ( (&link_global_data_start!=&link_global_data_initial_values) && (link_global_data_size != 0))
    d401c:	4809      	ldr	r0, [pc, #36]	; (d4044 <link_dynalib_end+0x28>)
    d401e:	490a      	ldr	r1, [pc, #40]	; (d4048 <link_dynalib_end+0x2c>)
    d4020:	4288      	cmp	r0, r1
-extern constructor_ptr_t link_constructors_end;
-
-/**
- * Initializes this user module. Returns the start of the heap.
- */
-void* module_user_pre_init() {
    d4022:	b508      	push	{r3, lr}
-
-    if ( (&link_global_data_start!=&link_global_data_initial_values) && (link_global_data_size != 0))
    d4024:	d005      	beq.n	d4032 <module_user_pre_init+0x16>
    d4026:	4a09      	ldr	r2, [pc, #36]	; (d404c <link_dynalib_end+0x30>)
    d4028:	4282      	cmp	r2, r0
    d402a:	d002      	beq.n	d4032 <module_user_pre_init+0x16>
-    {
-        memcpy(&link_global_data_start, &link_global_data_initial_values, link_global_data_size);
    d402c:	1a12      	subs	r2, r2, r0
    d402e:	f001 f96f 	bl	d5310 <memcpy>
-    }
-
-    memset(&link_bss_location, 0, link_bss_size );
    d4032:	4807      	ldr	r0, [pc, #28]	; (d4050 <link_dynalib_end+0x34>)
    d4034:	4a07      	ldr	r2, [pc, #28]	; (d4054 <link_dynalib_end+0x38>)
    d4036:	2100      	movs	r1, #0
    d4038:	1a12      	subs	r2, r2, r0
    d403a:	f001 f974 	bl	d5326 <memset>
-    return &link_global_data_start;
-}
    d403e:	4801      	ldr	r0, [pc, #4]	; (d4044 <link_dynalib_end+0x28>)
    d4040:	bd08      	pop	{r3, pc}
    d4042:	bf00      	nop
@@ -87,101 +66,47 @@ void* module_user_pre_init() {
    d4054:	2003e7f0 	.word	0x2003e7f0
 
 000d4058 <module_user_init>:
-extern constructor_ptr_t link_constructors_location[];
-extern constructor_ptr_t link_constructors_end;
-#define link_constructors_size   ((unsigned long)&link_constructors_end  -  (unsigned long)&link_constructors_location )
-
-void module_user_init()
-{
    d4058:	b570      	push	{r4, r5, r6, lr}
-    module_user_init_hook();
    d405a:	f000 fc09 	bl	d4870 <module_user_init_hook>
    d405e:	4c07      	ldr	r4, [pc, #28]	; (d407c <module_user_init+0x24>)
    d4060:	4b07      	ldr	r3, [pc, #28]	; (d4080 <module_user_init+0x28>)
    d4062:	1ae4      	subs	r4, r4, r3
    d4064:	08a4      	lsrs	r4, r4, #2
-
-    // invoke constructors
-    int ctor_num;
-    for (ctor_num=0; ctor_num < link_constructors_size/sizeof(constructor_ptr_t); ctor_num++ )
    d4066:	2500      	movs	r5, #0
    d4068:	461e      	mov	r6, r3
    d406a:	42a5      	cmp	r5, r4
    d406c:	d004      	beq.n	d4078 <module_user_init+0x20>
-    {
-        link_constructors_location[ctor_num]();
    d406e:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
    d4072:	4798      	blx	r3
-{
-    module_user_init_hook();
-
-    // invoke constructors
-    int ctor_num;
-    for (ctor_num=0; ctor_num < link_constructors_size/sizeof(constructor_ptr_t); ctor_num++ )
    d4074:	3501      	adds	r5, #1
    d4076:	e7f8      	b.n	d406a <module_user_init+0x12>
-    {
-        link_constructors_location[ctor_num]();
-    }
-}
    d4078:	bd70      	pop	{r4, r5, r6, pc}
    d407a:	bf00      	nop
    d407c:	000d5788 	.word	0x000d5788
    d4080:	000d5738 	.word	0x000d5738
 
 000d4084 <module_user_setup>:
-
-/**
- * Export these functions with a fuller name so they don't clash with the setup/loop wrappers in the system module.
- */
-void module_user_setup() {
-    setup();
    d4084:	f000 b814 	b.w	d40b0 <setup>
 
 000d4088 <module_user_loop>:
-}
-
-void module_user_loop() {
    d4088:	b508      	push	{r3, lr}
-    loop();
    d408a:	f000 f82b 	bl	d40e4 <loop>
-    _post_loop();
-}
    d408e:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
-    setup();
-}
-
-void module_user_loop() {
-    loop();
-    _post_loop();
    d4092:	f000 bbaf 	b.w	d47f4 <_post_loop>
 
 000d4096 <_ZdlPv>:
    d4096:	f000 ba2f 	b.w	d44f8 <free>
 
 000d409a <_ZdaPv>:
-	free(p);
-}
-
-void operator delete[](void *p)
-{
-	free(p);
    d409a:	f000 ba2d 	b.w	d44f8 <free>
 
 000d409e <__cxa_guard_acquire>:
-
-/* Provide default implemenation for __cxa_guard_acquire() and
- * __cxa_guard_release(). Note: these must be revisited if a multitasking
- * OS is ported to this platform. */
-__extension__ typedef int __guard __attribute__((mode (__DI__)));
-int __cxa_guard_acquire(__guard *g) {return !*(char *)(g);};
    d409e:	7800      	ldrb	r0, [r0, #0]
    d40a0:	fab0 f080 	clz	r0, r0
    d40a4:	0940      	lsrs	r0, r0, #5
    d40a6:	4770      	bx	lr
 
 000d40a8 <__cxa_guard_release>:
-void __cxa_guard_release (__guard *g) {*(char *)g = 1;};
    d40a8:	2301      	movs	r3, #1
    d40aa:	7003      	strb	r3, [r0, #0]
    d40ac:	4770      	bx	lr
