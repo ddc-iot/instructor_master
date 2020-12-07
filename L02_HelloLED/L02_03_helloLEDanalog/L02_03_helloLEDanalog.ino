@@ -5,20 +5,20 @@
  * Date: 09-FEB-2020
  */
 
-int ledPin = 5;
-int ledDelay = 1000; // 1000 ms or 1 s
+const int LEDPIN = 5;
+const int LEDDELAY = 1000; // 1000 ms or 1 s
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
+  pinMode(LEDPIN, OUTPUT);
 }
 
 void loop() {
-  analogWrite(ledPin, 255);
-  delay(ledDelay);
-  analogWrite(ledPin, 63);
-  delay(ledDelay);
-  analogWrite(ledPin, 171);
-  delay(ledDelay);
-  analogWrite(ledPin, 16);
-  delay(ledDelay);
+  analogWrite(LEDPIN, 255);
+  delay(LEDDELAY);
+  analogWrite(LEDPIN, 63);
+  delay(LEDDELAY);
+  analogWrite(LEDPIN, 171);
+  delay(LEDDELAY);
+  analogWrite(LEDPIN, 16);
+  delay(LEDDELAY);
 }

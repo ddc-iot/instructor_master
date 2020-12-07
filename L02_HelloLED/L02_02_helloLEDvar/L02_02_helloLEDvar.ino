@@ -8,16 +8,16 @@
  // Connect anode of LED to Pin 5
  // Connect cathode of LED to GND with a resistor (100 ohm to 10k ohm)
 
-int ledPin = 5;
-int ledDelay = 100; // 1000 ms or 1 s
+const int LEDPIN = 5;
+const int LEDDELAY = 100; // 1000 ms or 1 s
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
+  pinMode(LEDPIN, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(ledPin, HIGH);
-  delay(ledDelay);
-  digitalWrite(ledPin, LOW);
-  delay(ledDelay);
+  digitalWrite(LEDPIN, HIGH);
+  delay(LEDDELAY);
+  digitalWrite(LEDPIN, LOW);
+  delay(LEDDELAY);
 }
