@@ -11,15 +11,13 @@
 #include <Ethernet.h>
 #include <SPI.h>
 #include <mac.h>
+#include <wemo.h>
  
-EthernetClient WemoClient;
-
+const int mywemo = 0;
 int inPin = 23;
 bool state = true;
 bool reading;
 
-char wemoIP[ ] = "172.16.0.18";
-int wemoPort = 49153;
 
 void setup()
 {
@@ -46,57 +44,12 @@ void loop(){
    
    if (reading != state){
      if (reading==true){
-       switchON();
+       switchON(mywemo);
        delay(1000);
      }else{
-       switchOFF();
+       switchOFF(mywemo);
        delay(1000);
      }
      state = reading;
    }
-}
-
-void switchON()
-{
-  String data1;
-  
-  Serial.println("switchON");
-  data1+="<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><s:Body><u:SetBinaryState xmlns:u=\"urn:Belkin:service:basicevent:1\"><BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>"; // Use HTML encoding for comma's
-  if (WemoClient.connect(wemoIP,wemoPort)) {
-        WemoClient.println("POST /upnp/control/basicevent1 HTTP/1.1");
-        WemoClient.println("Content-Type: text/xml; charset=utf-8");
-        WemoClient.println("SOAPACTION: \"urn:Belkin:service:basicevent:1#SetBinaryState\"");
-        WemoClient.println("Connection: keep-alive");
-        WemoClient.print("Content-Length: ");
-        WemoClient.println(data1.length());
-        WemoClient.println();
-        WemoClient.print(data1);
-        WemoClient.println();
-    }
-
-  if (WemoClient.connected()) {
-     WemoClient.stop();
-  }
-}
-
-void switchOFF(){
-  
-  Serial.println("switchOFF");
-  String data1;
-  data1+="<?xml version=\"1.0\" encoding=\"utf-8\"?><s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><s:Body><u:SetBinaryState xmlns:u=\"urn:Belkin:service:basicevent:1\"><BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>"; // Use HTML encoding for comma's
-  if (WemoClient.connect(wemoIP,wemoPort)) {
-        WemoClient.println("POST /upnp/control/basicevent1 HTTP/1.1");
-        WemoClient.println("Content-Type: text/xml; charset=utf-8");
-        WemoClient.println("SOAPACTION: \"urn:Belkin:service:basicevent:1#SetBinaryState\"");
-        WemoClient.println("Connection: keep-alive");
-        WemoClient.print("Content-Length: ");
-        WemoClient.println(data1.length());
-        WemoClient.println();
-        WemoClient.print(data1);
-        WemoClient.println();
-    }
-   
-  if (WemoClient.connected()) {
-     WemoClient.stop();
-  }
 }

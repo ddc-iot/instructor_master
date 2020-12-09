@@ -7,7 +7,7 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <mac.h>
-#include <hue2.h>
+#include <hue.h>
 
 int buttonPin = 20;
 boolean activated = true;
@@ -53,42 +53,10 @@ void setup()
   Serial.println("Ready.");
 
   color = 0;
-}
 
-void loop() 
-{ 
-    buttonstate = digitalRead(buttonPin);
-
-    if(buttonstate !=last)
-    {
-      if (buttonstate == HIGH) {
-        onoff = !onoff;
-      }
-      last = buttonstate;
-      Serial.print("On/Off = "); Serial.println(onoff);
-    }
-    
-    elapse = millis()-lastmillis;
-    if(onoff==true && elapse > 1000) {
-      Serial.println(" - activated");
-      //delay(500);
-      activated = true;
-      bulb = random(1,6);
-      lastmillis = millis();
-      setHue(bulb,activated, HueRainbow[color],random(32,265),255);
-      color++;
-    }  
-
-  if(onoff==false && activated == true) {
-      Serial.println(" - DEactivated");
-      //delay(500);
-      activated = false;
-      for (bulb=1;bulb<=5;bulb++) {
-        setHue(bulb,activated,0,0,0);
-      }  
-  }
-  delay(1000);
-  if (color>6) {
-    color = 0;
+  for (bulb=1;bulb<=5;bulb++) {
+        getHue(bulb);
   }
 }
+
+void loop() {}
