@@ -23,13 +23,13 @@ void setup() {
 
 void loop() {
   inVal = analogRead(inPin);
-  Serial.println(inVal);
-  voltage = bits2volts(inVal);    // call function bits2volts
-  Serial.println(voltage);
+  Serial.printf("analogRead value is %i \n",inVal);
+  voltage = in2volts(inVal);    // call function bits2volts
+  Serial.printf("The input voltage is %0.2f \n",voltage/2);
   delay(inputDelay);
 }
 
-float bits2volts(int bitVal) {    // define function bits2volts
+float in2volts(int bitVal) {    // define function in2volts
   float voltVal;
   voltVal = bitVal*(3.3/1028);
   return voltVal;                 // return volts value

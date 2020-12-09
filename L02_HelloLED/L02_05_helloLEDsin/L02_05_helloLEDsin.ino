@@ -5,24 +5,20 @@
  * Date: 09-FEB-2020
  */
 
- // Connect anode of Red LED to Pin 5
- // Connect cathode of each LED to GND with 100 to 10k ohm resistor
+#include <math.h>   //the math library gives access to Trigometeric functions
 
-int ledPin = 5;
-int ledDelay = 50; 
-float i = 0;
-int out;
+const int LEDPIN = 5;
 
+float t;               //time variable 
+float period = 5000;   //period in ms
+int value;             //sine wave output, scaled for analogWrite
 
 void setup() {
-  // put your setup code here, to run once:
-pinMode(ledPin, OUTPUT);
+pinMode(LEDPIN, OUTPUT);
 }
 
 void loop() {
-
-  out = 255*(0.5*sin(2*3.14159*i)+0.5);
-  analogWrite(ledPin,out);
-  i = i+0.01;
-  delay(ledDelay);
+  t = millis() / period;
+  value = 255*(0.5*sin(2*3.14159*t)+0.5);
+  analogWrite(LEDPIN,value);
 }

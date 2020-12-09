@@ -1,54 +1,55 @@
 /*
  * Project: Buttons and Lights 
- * Description: Teach using two buttons
+ * Description: Teach reading a button and controlling an LED
  * Author: Brian A Rashap
  * Date: 11-Dec-2019
  */
 
-int ledPin0 = 5;
-int ledPin1 = 6;
-int ledDelay = 10; 
+ // Connect anode of LED to Pin 5
+ // Connect cathode of LED to GND with 220 ohm resistor
 
+int redPin = 5;
+int yellowPin = 6;
 
-int buttonPin0 = 23;
-int buttonPin1 = 16;
-
-bool buttonState0;
-bool buttonState1;
+// Connect button to Pin 5. Add Pull-down resistor to button terminal, Vcc to other.
+int redButtonPin = 23;
+int yellowButtonPin = 16;
+bool redButtonState;
+bool yellowButtonState;
 
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(ledPin0, OUTPUT);
-  pinMode(ledPin1, OUTPUT);
-  pinMode(buttonPin0, INPUT);
-  pinMode(buttonPin1, INPUT);
+  pinMode(redPin, OUTPUT);
+  pinMode(redButtonPin, INPUT);
+  pinMode(yellowPin, OUTPUT);
+  pinMode(yellowButtonPin, INPUT);
 
-  Serial.begin (9600);   // Turn on Serial Monitor, Open it on the Tools menu
-  while (!Serial);      
+  Serial.begin (9600);
+  while (!Serial);       // wait for the Serial monitor it be on-line
   Serial.println ("Ready to Go");
 }
 
 void loop() {
 
-buttonState0 = digitalRead(buttonPin0);
-if (buttonState0 == false) {
-  Serial.println("Button 0 is not pressed");
-  digitalWrite(ledPin0, LOW);
+  redButtonState = digitalRead(redButtonPin);
+  if (redButtonState == false) {
+    Serial.printf("Red Button State is = %i. The button is not pressed \n",redButtonState);
+    digitalWrite(redPin, LOW);
   }
   else {
-    Serial.println("Button 0 is pressed");
-    digitalWrite(ledPin0, HIGH);
+    Serial.printf("Red Button State is = %i. Button is pressed \n",redButtonState);
+    digitalWrite(redPin, HIGH);
   }
 
-buttonState1 = digitalRead(buttonPin1);
-if (buttonState1 == false) {
-  Serial.println("Button 1 is not pressed");
-  digitalWrite(ledPin1, LOW);
+  yellowButtonState = digitalRead(yellowButtonPin);
+  if (yellowButtonState == false) {
+    Serial.printf("Yellow Button State is = %i. The button is not pressed \n",yellowButtonState);
+    digitalWrite(yellowPin, LOW);
   }
   else {
-    Serial.println("Button  1 is pressed");
-    digitalWrite(ledPin1, HIGH);
+    Serial.printf("Yellow Button State is = %i. Button is pressed \n",yellowButtonState);
+    digitalWrite(yellowPin, HIGH);
   }
 
-delay(ledDelay);
+
+    
 }

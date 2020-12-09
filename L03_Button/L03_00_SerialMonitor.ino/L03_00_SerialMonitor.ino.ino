@@ -5,7 +5,7 @@
  * Date: 26-Feb-2020
  */
 
-int ledDelay = 1000; // 1000 ms or 1 s
+int printDelay = 500;
 int i;
 
 void setup() {
@@ -18,7 +18,19 @@ void setup() {
 
 void loop() {
   for (i=0; i <=13; i++) {
-    Serial.println(i);
-    delay(ledDelay);
+    Serial.print(i);
+    Serial.print(",");
+    delay(printDelay);
+  }
+
+  for (i=0; i <=13; i++) {
+    Serial.print(i);
+    Serial.println(",");
+    delay(printDelay);
+  }
+  
+  for (i=0; i <=13; i++) {
+    Serial.printf("%i, ",i);
+    delay(printDelay);
   }
 }

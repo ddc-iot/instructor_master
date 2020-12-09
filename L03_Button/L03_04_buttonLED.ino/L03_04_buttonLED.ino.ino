@@ -1,6 +1,6 @@
 /*
  * Project: Buttons and Lights 
- * Description: Teach the use of variables
+ * Description: Teach reading a button and controlling an LED
  * Author: Brian A Rashap
  * Date: 11-Dec-2019
  */
@@ -9,10 +9,8 @@
  // Connect cathode of LED to GND with 220 ohm resistor
 
 int ledPin = 5;
-int ledDelay = 10; // 1000 ms or 1 s
 
-
-// Connect button to Pin 18. Add Pull-down resistor to button terminal, Vcc to other.
+// Connect button to Pin 5. Add Pull-down resistor to button terminal, Vcc to other.
 int buttonPin = 23;
 bool buttonState;
 
@@ -29,13 +27,11 @@ void loop() {
 
   buttonState = digitalRead(buttonPin);
   if (buttonState == false) {
-    Serial.println("Button is not pressed");
+    Serial.printf("Button State is = %i. The button is not pressed \n",buttonState);
     digitalWrite(ledPin, LOW);
     }
   else {
-    Serial.println("Button is pressed");
+    Serial.printf("Button State is = %i. Button is pressed \n",buttonState);
     digitalWrite(ledPin, HIGH);
     }
-
-delay(ledDelay);
 }

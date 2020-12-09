@@ -5,33 +5,29 @@
  * Date: 11-Dec-2019
  */
 
-int ledDelay = 1000; // 1000 ms or 1 s
+int printDelay = 1000; // 1000 ms or 1 s
 
 // Connect button to Pin 23. Add Pull-down resistor to button terminal, Vcc to other.
 int buttonPin = 23;
 bool buttonState; // variable to store button position
 
 void setup() {
-
-pinMode(buttonPin, INPUT);
-
-// Enable Serial Monitor
+  pinMode(buttonPin, INPUT);
   Serial.begin (9600);
   while (!Serial);        // wait for the Serial monitor it be on-line
-  Serial.println ();
-  Serial.println ("Ready to Go");
+  Serial.printf ("Ready to Go \n");
 }
 
 void loop() {
 
   buttonState = digitalRead(buttonPin);
   if (buttonState == LOW) {
-    Serial.println("Button is not pressed");
+    Serial.printf("Button State is = %i. The button is not pressed \n",buttonState);
   }
   else
   {
-    Serial.println("Button is pressed");
+    Serial.printf("Button State is = %i. Button is pressed \n",buttonState);
   }
 
-delay(ledDelay);
+delay(printDelay);
 }
