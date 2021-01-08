@@ -1,6 +1,6 @@
 /*
- * Project: Buttons 
- * Description: Introduce buttons, pull-down resistors, and Serial Monitor
+ * Project: Button_Input_Pullup
+ * Description: The INPUT_PULLUP pinMode
  * Author: Brian A Rashap
  * Date: 11-Dec-2019
  */
@@ -13,7 +13,7 @@ void setup() {
   Serial.begin (9600);    // Enable Serial Monitor
   while (!Serial);        // wait for the Serial monitor it be on-line
 
-  pinMode(BUTTONPIN, INPUT);
+  pinMode(BUTTONPIN, INPUT_PULLUP);
   
   Serial.printf("Ready to Go\n");
 }

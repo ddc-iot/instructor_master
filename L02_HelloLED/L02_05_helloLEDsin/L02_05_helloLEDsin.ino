@@ -8,17 +8,16 @@
 #include <math.h>   //the math library gives access to Trigometeric functions
 
 const int LEDPIN = 5;
-
 float t;               //time variable 
-float period = 5000;   //period in ms
+float freq = 0.2;      //frequency in Hz
 int value;             //sine wave output, scaled for analogWrite
 
 void setup() {
-pinMode(LEDPIN, OUTPUT);
+  pinMode(LEDPIN, OUTPUT);
 }
 
 void loop() {
-  t = millis() / period;
-  value = 255*(0.5*sin(2*3.14159*t)+0.5);
+  t = millis() / 1000.0;
+  value = 127*(sin(2*M_PI*freq*t)+1);
   analogWrite(LEDPIN,value);
 }

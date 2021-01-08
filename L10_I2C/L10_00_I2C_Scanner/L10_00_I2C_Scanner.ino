@@ -19,22 +19,15 @@ void setup() {
   for (i = 0; i <= 127; i++)
   {
     Wire.beginTransmission (i);
+    Serial.printf("Wire transmission end returned: %d \n",Wire.endTransmission());
     if (Wire.endTransmission () == 0)
       {
-      Serial.print ("Found address: ");
-      Serial.print (i, DEC);
-      Serial.print (" (0x");
-      Serial.print (i, HEX);
-      Serial.println (")");
+      Serial.printf("Found address: %02d (0x%02X) \n",i,i);  
       count++;
       delay (1);
       } 
   }
-  
-  Serial.println ("Done.");
-  Serial.print ("Found ");
-  Serial.print (count, DEC);
-  Serial.println (" device(s).");
+  Serial.printf("Done: Found %d device(s). \n",count);
 }  
 
-void loop() {}   // this code has no loop, as it only runs once
+void loop() {}   // empty

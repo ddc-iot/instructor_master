@@ -18,9 +18,10 @@ const int NUMPIXELS=16;
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
-const int pixeldelay=1000;
-const int start_pixel = 0; // the first pixel is 0
+
+const int STARTPIXEL = 0; //  the first pixel is 0
 int i = 0;                 // counter variable
+int pixeldelay=1000;
 
 void setup() {
   Serial.begin(9600);
@@ -38,13 +39,8 @@ void loop() {
   pixels.show();
   delay(pixeldelay);
 
-  pixels.fill(red, 0, 6);
-  pixels.show();
-  delay(pixeldelay);
-  pixels.fill(lime, 6, 6);
-  pixels.show();
-  delay(pixeldelay);
-  pixels.fill(blue, 12,4);
-  pixels.show();
-  delay(5000);
+  for(i=STARTPIXEL;i<NUMPIXELS;i+(NUMPIXELS/6)) {
+    pixel.fill(random(0x000000,0xFFFFFF),i,NUMPIXELS/6);
+    delay(pixeldelay);
+  }
 }

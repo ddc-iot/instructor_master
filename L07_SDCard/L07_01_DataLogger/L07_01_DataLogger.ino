@@ -20,16 +20,13 @@
 File dataFile;
 
 const int chipSelect = 4;
-const int readArray[] = {14, 15, 16};
-String dataString;
-int i;
-int num_sensors;
-float sensor;
+int temp;
+int humid;
 
 void setup()
 {
   Serial.begin(9600);
-   while (!Serial);
+  while (!Serial);
   Serial.print("Initializing SD card...");
   
   // see if the card is present and can be initialized:
@@ -38,46 +35,34 @@ void setup()
     return;
   }
   Serial.println("card initialized.");
-
-  num_sensors = sizeof(readArray)/4;
 }
 
 void loop()
 {
-  // clear thestring for assembling the data to log:
-  dataString = "";
-
-
-  Serial.println("About to collect data from sensors");
+  Serial.println("About to collect make believe data");
   delay(2000);
-  // read three sensors and append to the string:
-  for (i = 0; i < num_sensors; i++) {
-    sensor = random(0,1047);
-    dataString += String(sensor);
-    if (i < (num_sensors - 1)) {
-      dataString += ",";
-    }
-  }
+  temp = random(65,75);
+  humid = random(20,50);
 
-  print2SD();
+  print2SD(temp,humid);
   delay(2000);
   read2SD();
 }
 
-void print2SD() {
+void print2SD(int print_temp, int print_humid) {
 
   dataFile = SD.open("datalog.txt", FILE_WRITE);
 
   // if the file is available, write to it:
   if (dataFile) {
-    dataFile.println(dataString);
+    dataFile.printf("%i, %i, %i \n",temp,humid);
     dataFile.close();
-    // print to the serial port too:
-    Serial.println(dataString);
+    Serial.printf("%i, %i, %i \n",temp,humid);
   }  
   else {
     Serial.println("error opening datalog.txt");
   }
+  return;
 } 
 
 void read2SD(){
@@ -95,4 +80,5 @@ void read2SD(){
   } else {
     Serial.println("error opening datafile.txt");
   }
+  return;
 }

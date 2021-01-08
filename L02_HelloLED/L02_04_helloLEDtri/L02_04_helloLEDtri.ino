@@ -1,6 +1,11 @@
 /*
+<<<<<<< HEAD
+ * Project: Triangle Wave 
+ * Description: Teach FOR loops
+=======
  * Project: Saw Tooth 
  * Description: Teach For loops
+>>>>>>> 8aa8cc3f14ed2d6a6d3b38ebdff286f2bca7c1a1
  * Author: Brian A Rashap
  * Date: 09-FEB-2020
  */
@@ -29,5 +34,4 @@ void loop() {
     analogWrite(LEDRED,i);
     delay(LEDDELAY);
   }
-
 }

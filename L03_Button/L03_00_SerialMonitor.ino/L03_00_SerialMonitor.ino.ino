@@ -10,13 +10,10 @@ int i;
 
 void setup() {
 
-// Enable Serial Monitor
-  Serial.begin (9600);
-  while (!Serial);                // wait for the Serial monitor it be on-line
+  Serial.begin (9600);            // Enable Serial Monitor
+  while(!Serial);                 // wait a moment for the Serial monitor it be on-line
   Serial.println ("Ready to Go");
-}
 
-void loop() {
   for (i=0; i <=13; i++) {
     Serial.print(i);
     Serial.print(",");
@@ -34,3 +31,5 @@ void loop() {
     delay(printDelay);
   }
 }
+
+void loop() {}
