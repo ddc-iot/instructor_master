@@ -17,13 +17,13 @@ int newPosition;
 void setup() {
   Serial.begin(9600);
   while(!Serial);
-  Serial.println("Basic Encoder Test:");
+  Serial.printf("Basic Encoder Test:\n");
 }
 
 void loop() {
   newPosition = myEnc.read();
   if (newPosition != oldPosition) {
     oldPosition = newPosition;
-    Serial.println(newPosition);
+    Serial.printf("Encoder Position: %03i\n",newPosition);
   }
 }

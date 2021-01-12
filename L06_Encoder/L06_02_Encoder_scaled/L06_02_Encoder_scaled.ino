@@ -10,26 +10,29 @@
 
 #include <Encoder.h>
 
-const int numenc = 96;   // number of positions on Encoder
-const int numpix = 12;   // number of pixels in the Ring
+const int NUMENC = 96;   // number of positions on Encoder
+const int NUMPIX = 12;   // number of pixels in the Ring
 
 Encoder myEnc(3,2);
 
 int oldPosition  = -999;
 int newPosition;
+int pixelPosition;
 int scale;
 
 void setup() {
   Serial.begin(9600);
   while(!Serial);
   Serial.println("Basic Encoder Test (Scaled for NeoPixel Ring):");
-  scale = numenc / numpix;
+  scale = NUMENC / NUMPIX; //set the scaling factor
 }
 
 void loop() {
   newPosition = myEnc.read();
   if (newPosition != oldPosition) {
     oldPosition = newPosition;
-    Serial.println(newPosition/scale);
+    pixelPosition = newPosition / scale;
+    //pixelPosition = map(newPosition,0,NUMENC,0,NUMPIX);
+    Serial.printf("Mapped NeoPixel Position: %03i\n",pixelPosition);
   }
 }
