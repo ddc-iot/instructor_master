@@ -27,12 +27,13 @@ void setup() {
 }
 
 void loop() {
-  freq = analogRead(FREQPIN)/100;  //vary freq from 0 to 511;
+  //freq = analogRead(FREQPIN)/20;  //vary freq from 0 to 511;
+  freq = 50;
   t = micros()/1000000.0;
   sig = 1.65*(sin(2*M_PI*freq*t)+1);
   analogWrite(OUTPIN,(255/3.3)*sig);
   unfilt = analogRead(SIGNALPIN);
   filt = analogRead(FILTERPIN);
-  Serial.printf("%i,%0.2f,%0.2f\n",freq,unfilt,filt);
-  delay(2);
+  Serial.printf("%i,%0.2f,%0.2f\n",freq,unfilt/4,filt/4);
+  delayMicroseconds((10000/freq));
 }
