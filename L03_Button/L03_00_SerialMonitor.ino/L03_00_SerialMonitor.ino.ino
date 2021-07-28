@@ -11,6 +11,7 @@ int i;
 void setup() {
 
   Serial.begin (9600);            // Enable Serial Monitor
+  //waitFor(Serial.isConnected,1000); Doesn't work on Ardunio
   while(!Serial);                 // wait a moment for the Serial monitor it be on-line
   Serial.println ("Ready to Go");
 

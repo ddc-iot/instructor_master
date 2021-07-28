@@ -9,7 +9,7 @@
 #include <mac.h>
 #include <hue2.h>
 
-int buttonPin = 20;
+int buttonPin = 23;
 boolean activated = true;
 int bulb;
 long color;
