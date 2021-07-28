@@ -100,10 +100,11 @@ void onDataReceived(const uint8_t* data, size_t len, const BlePeerDevice& peer, 
     int encPos;
 
     Serial.printf("Received data from: %02X:%02X:%02X:%02X:%02X:%02X \n", peer.address()[0], peer.address()[1],peer.address()[2], peer.address()[3], peer.address()[4], peer.address()[5]);
-    for (i = 0; i < len; i++) {
+    Serial.printf("Data from Bluefruit: %s\n",(char *)data);
+    /*for (i = 0; i < len; i++) {
         Serial.printf("%02X",data[i]);
     }
-    Serial.printf("\n");
+    Serial.printf("\n");*/
 
     if(len < 5) {
       pixelNumber = atoi((char *)data);
@@ -122,7 +123,6 @@ int getEnc() {
   int position;
 
   position = myEnc.read();
-  
   if (position > ENCODER_COUNT) {
     position = ENCODER_COUNT;
     myEnc.write(ENCODER_COUNT);
