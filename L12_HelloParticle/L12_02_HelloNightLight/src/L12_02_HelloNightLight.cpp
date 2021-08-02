@@ -3,7 +3,7 @@
 /******************************************************/
 
 #include "Particle.h"
-#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L12_HelloParticle/L12_01_HelloParticle/L12_02_HelloNightLight/src/L12_02_HelloNightLight.ino"
+#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L12_HelloParticle/L12_02_HelloNightLight/src/L12_02_HelloNightLight.ino"
 /*
  * Project L12_02_HelloNightLight
  * Description: Create a night light using Argon
@@ -13,12 +13,13 @@
 
 void setup();
 void loop();
-#line 8 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L12_HelloParticle/L12_01_HelloParticle/L12_02_HelloNightLight/src/L12_02_HelloNightLight.ino"
+#line 8 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L12_HelloParticle/L12_02_HelloNightLight/src/L12_02_HelloNightLight.ino"
 const int LEDPIN = D4;
 const int PHOTOPIN = A0;
 const int THRESHOLD = 100;
 
 int photoValue;
+int ledValue;
 unsigned int currentTime, lastTime;
 
 void setup() {
@@ -28,10 +29,16 @@ void setup() {
 
 void loop() {
   photoValue = analogRead(A0);
-  if(photoValue < THRESHOLD ) {
-    digitalWrite(LEDPIN,HIGH);
-  }
-  else {
-    digitalWrite(LEDPIN,LOW);
-  }
+
+  /* Part 1 - digitalWrite
+    if(photoValue < THRESHOLD ) {
+      digitalWrite(LEDPIN,HIGH);
+    }
+    else {
+      digitalWrite(LEDPIN,LOW);
+    }
+  */
+
+  ledValue = map(photoValue,0,4096,255,0);
+  analogWrite(LEDPIN,ledValue);
 }

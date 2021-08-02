@@ -10,6 +10,7 @@ const int PHOTOPIN = A0;
 const int THRESHOLD = 100;
 
 int photoValue;
+int ledValue;
 unsigned int currentTime, lastTime;
 
 void setup() {
@@ -19,10 +20,16 @@ void setup() {
 
 void loop() {
   photoValue = analogRead(A0);
-  if(photoValue < THRESHOLD ) {
-    digitalWrite(LEDPIN,HIGH);
-  }
-  else {
-    digitalWrite(LEDPIN,LOW);
-  }
+
+  /* Part 1 - digitalWrite
+    if(photoValue < THRESHOLD ) {
+      digitalWrite(LEDPIN,HIGH);
+    }
+    else {
+      digitalWrite(LEDPIN,LOW);
+    }
+  */
+
+  ledValue = map(photoValue,0,4096,255,0);
+  analogWrite(LEDPIN,ledValue);
 }
