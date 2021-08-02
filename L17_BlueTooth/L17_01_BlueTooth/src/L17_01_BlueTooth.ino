@@ -88,19 +88,18 @@ void onDataReceived(const uint8_t* data, size_t len, const BlePeerDevice& peer, 
 
     Serial.printf("Received data from: %02X:%02X:%02X:%02X:%02X:%02X \n", peer.address()[0], peer.address()[1],peer.address()[2], peer.address()[3], peer.address()[4], peer.address()[5]);
     Serial.printf("Data from Bluefruit: %s\n",(char *)data);
-    /*for (i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
         Serial.printf("%02X",data[i]);
     }
-    Serial.printf("\n");*/
 
-    if(len < 5) {
+    if((data[0] == 0x21) && (data[1] == 0x43)) {
+      pixelColor = data[2]<<16 | data[3]<<8 | data[4];
+    }
+    else {
       pixelNumber = atoi((char *)data);
       lastPixel = pixelNumber;
       encPos = map(pixelNumber,0,PIXEL_COUNT-1,0,ENCODER_COUNT-1);
-      myEnc.write(encPos); 
-    }
-    else {
-      pixelColor = data[2]<<16 | data[3]<<8 | data[4];
+      myEnc.write(encPos);      
     }
     fillPixels(pixelNumber,pixelColor);
 }
@@ -135,21 +134,33 @@ void fillPixels(int pixNum, int pixColor) {
 // Convert data to ASCII and send to Bluefruit connect for display and/or plotting
 void bleSend(int pixNum, int PixRed, int PixGreen, int PixBlue) {
 
+  char plotStr[15];
+
+  sprintf(plotStr,"%i,%i,%i,%i\n",pixNum,red,green,blue);
+  memcpy(txBuf,&plotStr,15);
+  txCharacteristic.setValue(txBuf,15);
+}
+
+/* bleSend the Hard Way
+void bleSend(int pixNum, int PixRed, int PixGreen, int PixBlue) {
+
+  char plotStr[15];
+
     txBuf[0] = 0x30 + pixNum / 10;
     txBuf[1] = 0x30 + pixNum % 10;
     txBuf[2] = 0x2C;
     txBuf[3] = 0x30 + red/100;
     txBuf[4] = 0x30 + (red%100)/10;
-    txBuf[5] = 0x30 + (red%100)%10;
+    txBuf[5] = 0x30 + red%10;
     txBuf[6] = 0x2C;
     txBuf[7] = 0x30 + green/100;
     txBuf[8] = 0x30 + (green%100)/10;
-    txBuf[9] = 0x30 + (green%100)%10;
+    txBuf[9] = 0x30 + green%10;
     txBuf[10] = 0x2C;
     txBuf[11] = 0x30 + blue/100;
     txBuf[12] = 0x30 + (blue%100)/10;
-    txBuf[13] = 0x30 + (blue%100)%10;
+    txBuf[13] = 0x30 + blue%10;
     txBuf[14] = 0x0A;
 
     txCharacteristic.setValue(txBuf,15);
-}
+} */
