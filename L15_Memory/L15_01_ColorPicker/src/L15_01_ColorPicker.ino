@@ -21,7 +21,7 @@
 #include "neopixel.h"
 
 const int PIXEL_PIN=D2;
-const int PIXEL_COUNT=12;
+const int PIXEL_COUNT=64;
 Adafruit_NeoPixel pixel(PIXEL_COUNT, PIXEL_PIN, WS2812B);
 
 #include "credentials.h"
@@ -43,6 +43,7 @@ unsigned long last, lastTime;
 float value1, value2;
 byte buf2[7];
 int color,bright;
+byte red,green,blue;
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
@@ -90,6 +91,13 @@ void loop() {
       color = strtol((char *)buf2,NULL,16);
       Serial.printf("Buffer: 0x%02X \n",color);
       ring(color,bright);
+
+      // parse colors and write to EEPROM
+      colorParser(color, &red, &green, &blue);
+      EEPROM.write(0x42,red);
+      EEPROM.write(0x43,green);
+      EEPROM.write(0x44,blue);
+
     }
     if (subscription == &brightFeed) {
       Serial.printf("Brightness from Adafruit: %s \n",(char *)brightFeed.lastread);
@@ -123,8 +131,14 @@ void ring(int neoColor,int neoBright) {
   int i;
 
   pixel.setBrightness(neoBright);
-  for(i=0;i<12;i++) {
+  for(i=0;i<PIXEL_COUNT;i++) {
     pixel.setPixelColor(i,neoColor);
   }
   pixel.show();
+}
+
+void colorParser(int hex, uint8_t *r, uint8_t *g, uint8_t *b) {
+  red = hex >> 16;
+  green = (hex >> 8) & 0x0000FF;
+  blue = hex & 0x0000FF;
 }
