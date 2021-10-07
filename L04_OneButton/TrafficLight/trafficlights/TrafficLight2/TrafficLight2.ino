@@ -8,26 +8,26 @@
 #include "TrafficLight.h"
 #include "Button.h"
 
-//Declare Pins
-int PIN_GREEN = 5;
-int PIN_YELLOW = 6;
-int PIN_RED = 7;
-int PIN_Button = 23;
+// Declare Pins
+const int GREENPIN = 5;
+const int YELLOWPIN = 6;
+const int REDPIN = 7;
+const int BUTTONPIN = 23;
 
-TrafficLight trafficLight(PIN_GREEN, PIN_YELLOW, PIN_RED);
-Button button(PIN_Button);
+TrafficLight lightOne(GREENPIN,YELLOWPIN,REDPIN);
+Button buttonOne(BUTTONPIN);
 
 void setup() {
 
 }
 
 void loop() {
-  if (button.isPressed()) {
-    trafficLight.stop();
+  if (buttonOne.isPressed()) {
+    lightOne.stop();
   }
   else {
-    trafficLight.go();
+    lightOne.go();
   }
 
-  trafficLight.loop();
+  lightOne.trafficLoop();
 }

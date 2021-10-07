@@ -1,21 +1,25 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-
 class Timer {
-
-  unsigned long timerStart = 0;
-  unsigned long timerTarget = 0;
+  
+  unsigned int _timerStart;
+  unsigned int _timerTarget;
 
   public:
-    void startTimer(long msec) {
-      timerStart = millis();
-      timerTarget = msec;
+    void startTimer(unsigned int msec) {
+      _timerStart = millis();
+      _timerTarget = msec;
     }
 
     bool isTimerReady() {
-      return (millis() - timerStart) > timerTarget;
-    }  
+      if ( (millis() - _timerStart) >= _timerTarget) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
 };
 
 #endif // _TIMER_H_

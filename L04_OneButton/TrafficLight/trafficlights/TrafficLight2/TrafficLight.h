@@ -44,7 +44,7 @@ class TrafficLight {
     _targetState = RED;
   }
 
-  void loop() {
+  void trafficLoop() {
     if (_targetState == GREEN) {
       goToGreen();
     }

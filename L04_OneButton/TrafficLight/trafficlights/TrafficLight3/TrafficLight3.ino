@@ -9,28 +9,30 @@
 #include "Button.h"
 #include "Timer.h"
 
-//Declare Pins
-int PIN_GREEN = 5;
-int PIN_YELLOW = 6;
-int PIN_RED = 7;
-int PIN_Button = 23;
+// Declare Pins
+const int GREENPIN = 5;
+const int YELLOWPIN = 6;
+const int REDPIN = 7;
+const int BUTTONPIN = 23;
 
-TrafficLight trafficLight(PIN_GREEN, PIN_YELLOW, PIN_RED);
-Button button(PIN_Button);
-Timer timer;
+Timer lightTimer;
+TrafficLight lightOne(GREENPIN,YELLOWPIN,REDPIN);
+Button buttonOne(BUTTONPIN);
 
-void setup() {}
+void setup() {
+
+
+}
 
 void loop() {
-  if (button.isPressed()) {
-    trafficLight.stop();
-    timer.startTimer(10000);
+  if(buttonOne.isPressed()) {
+    lightOne.stop();
+    lightTimer.startTimer(10000);
   }
   else {
-    if (timer.isTimerReady()) {
-      trafficLight.go();
+    if(lightTimer.isTimerReady()) {
+      lightOne.go();
     }
   }
-
-  trafficLight.loop();
+  lightOne.trafficLoop();
 }
