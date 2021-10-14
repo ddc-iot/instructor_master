@@ -15,7 +15,7 @@ const int REDPIN = 7;
 const int BUTTONPIN = 23;
 
 
-TrafficLight trafficLight(GREENPIN, YELLOWPIN, REDPIN);
+TrafficLight lightOne(GREENPIN, YELLOWPIN, REDPIN);
 Button button(BUTTONPIN);
 
 void setup() {
@@ -24,17 +24,17 @@ void setup() {
 }
 
 void loop() {
-  /*trafficLight.green();
+  /*lightOne.green();
   delay(1000);
-  trafficLight.yellow();
+  lightOne.yellow();
   delay(1000);
-  trafficLight.red();
+  lightOne.red();
   delay(1000);*/
 
   if (button.isPressed()) {
-    trafficLight.red();
+    lightOne.red();
   }
   else {
-    trafficLight.green();
+    lightOne.green();
   }
 }

@@ -8,8 +8,8 @@
 #include <math.h>
 
 const int OUTPIN = A14;
-const int SIGNALPIN = 22;
-const int FILTERPIN = 23;
+const int SIGNALPIN = 15;
+const int FILTERPIN = 14;
 const int FREQPIN = 16;
 
 int freq;
@@ -27,13 +27,13 @@ void setup() {
 }
 
 void loop() {
-  //freq = analogRead(FREQPIN)/20;  //vary freq from 0 to 511;
-  freq = 50;
+  freq = analogRead(FREQPIN)/2;  //vary freq from 0 to 511;
+  //freq = 50;
   t = micros()/1000000.0;
   sig = 1.65*(sin(2*M_PI*freq*t)+1);
   analogWrite(OUTPIN,(255/3.3)*sig);
   unfilt = analogRead(SIGNALPIN);
   filt = analogRead(FILTERPIN);
-  Serial.printf("%i,%0.2f,%0.2f\n",freq,unfilt/4,filt/4);
+  Serial.printf("%i,%0.2f, %0.2f\n",freq,unfilt/4,filt/4);
   delayMicroseconds((10000/freq));
 }
