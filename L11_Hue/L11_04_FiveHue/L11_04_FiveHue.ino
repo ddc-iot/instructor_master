@@ -20,7 +20,7 @@ bool onoff = false;
 bool last = HIGH;
 bool buttonstate;
  
-IPAddress ip(192,168,1,9);  // Teensy IP
+IPAddress ip(192,168,1,13);  // Teensy IP
 
 
 void setup()

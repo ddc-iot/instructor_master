@@ -54,20 +54,20 @@ void loop()
   temp = random(65,75);
   humid = random(20,50);
 
-  print2SD(temp,humid);
+  writeToSD(temp,humid);
   delay(2000);
   readFromSD();
 }
 
-void print2SD(int print_temp, int print_humid) {
+void writeToSD(int print_temp, int print_humid) {
 
   dataFile = SD.open("datalog.csv", FILE_WRITE);
 
   // if the file is available, write to it:
   if (dataFile) {
-    dataFile.printf("%i, %i \n",temp,print_humid);
+    dataFile.printf("%i, %i \n",print_temp,print_humid);
     dataFile.close();
-    Serial.printf("%i, %i \n",temp,print_humid);
+    Serial.printf("%i, %i \n",print_temp,print_humid);
   }  
   else {
     Serial.printf("error opening datalog.csv \n");
