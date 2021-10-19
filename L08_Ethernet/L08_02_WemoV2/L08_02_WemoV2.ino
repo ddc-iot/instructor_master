@@ -71,6 +71,7 @@ void setup() {
 }
 
 void loop(){
+  button.tick();
   if (desiredState && !actualState) {
     switchON(wemo);
   }
