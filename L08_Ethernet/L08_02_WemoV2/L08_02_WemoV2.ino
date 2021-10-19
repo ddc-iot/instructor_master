@@ -74,10 +74,12 @@ void loop(){
   button.tick();
   if (desiredState && !actualState) {
     switchON(wemo);
+    actualState=true;
   }
 
   if (!desiredState && actualState && timer.isTimerReady()) {
     switchOFF(wemo);
+    actualState=true;
   }
 
 }
