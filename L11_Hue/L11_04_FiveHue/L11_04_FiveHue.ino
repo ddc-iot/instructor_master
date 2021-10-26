@@ -19,6 +19,7 @@ unsigned int elapse;
 bool onoff = false;
 bool last = HIGH;
 bool buttonstate;
+const int numBulbs=6;
  
 IPAddress ip(192,168,1,13);  // Teensy IP
 
@@ -73,7 +74,7 @@ void loop()
       Serial.println(" - activated");
       //delay(500);
       activated = true;
-      bulb = random(1,6);
+      bulb = random(1,numBulbs+1);
       lastmillis = millis();
       setHue(bulb,activated, HueRainbow[color],random(32,265),255);
       color++;
@@ -83,12 +84,12 @@ void loop()
       Serial.println(" - DEactivated");
       //delay(500);
       activated = false;
-      for (bulb=1;bulb<=5;bulb++) {
+      for (bulb=1;bulb<=numBulbs;bulb++) {
         setHue(bulb,activated,0,0,0);
       }  
   }
   delay(1000);
-  if (color>6) {
+  if (color>numBulbs+1) {
     color = 0;
   }
 }

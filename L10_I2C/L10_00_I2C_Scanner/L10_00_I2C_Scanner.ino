@@ -19,15 +19,15 @@ void setup() {
   for (i = 0; i <= 127; i++)
   {
     Wire.beginTransmission (i);
-    Serial.printf("Wire transmission end returned: %d \n",Wire.endTransmission());
+    //Serial.printf("Wire transmission end returned: %i \n",Wire.endTransmission());
     if (Wire.endTransmission () == 0)
       {
-      Serial.printf("Found address: %02d (0x%02X) \n",i,i);  
+      Serial.printf("Found address: %03i (0x%02X) \n",i,i);  
       count++;
       delay (1);
       } 
   }
-  Serial.printf("Done: Found %d device(s). \n",count);
+  Serial.printf("Done: Found %i device(s). \n",count);
 }  
 
 void loop() {}   // empty

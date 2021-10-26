@@ -68,6 +68,7 @@ void setup() {
 
   //onebutton config
   button.attachClick(click1);
+  actualState = false;
 }
 
 void loop(){
@@ -79,12 +80,12 @@ void loop(){
 
   if (!desiredState && actualState && timer.isTimerReady()) {
     switchOFF(wemo);
-    actualState=true;
+    actualState=false;
   }
-
 }
 
 void click1() {
   desiredState = !desiredState;
   timer.startTimer(sleepTime);
+  Serial.printf("desiredState = %i\n",desiredState);
 }
