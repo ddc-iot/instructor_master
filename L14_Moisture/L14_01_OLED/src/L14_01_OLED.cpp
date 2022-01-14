@@ -24,8 +24,11 @@ Adafruit_SSD1306 display(OLED_RESET);
 const unsigned int updateTime = 5000;
 unsigned int lastTime;
 
+SYSTEM_MODE(SEMI_AUTOMATIC);
+
 void setup() {
 
+  Serial.begin(9600);
   Time.zone(-6); // -6 for MDT, -7 for MST
   Particle.syncTime();
 
@@ -55,6 +58,7 @@ void displayTime() {
   TimeOnly = DateTime.substring(11,19);
 
   display.setTextColor(BLACK, WHITE); 
+  Serial.printf("UNIX Date is %s\n",DateTime.c_str());
   display.printf("Time is %s\n",TimeOnly.c_str());
   display.display();
 }

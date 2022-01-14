@@ -33,7 +33,7 @@ void ring(int neoColor,int neoBright);
 void colorParser(int hex, uint8_t *r, uint8_t *g, uint8_t *b);
 #line 23 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L15_Memory/L15_01_ColorPicker/src/L15_01_ColorPicker.ino"
 const int PIXEL_PIN=D2;
-const int PIXEL_COUNT=64;
+const int PIXEL_COUNT=256;
 Adafruit_NeoPixel pixel(PIXEL_COUNT, PIXEL_PIN, WS2812B);
 
 #include "credentials.h"
@@ -76,7 +76,7 @@ void setup() {
 
   pixel.begin();
   bright = 127;
-  color = 0x0000FF;
+   
 }
 
 void loop() {
@@ -102,6 +102,9 @@ void loop() {
       Serial.printf("Buffer: %s \n",(char *)buf2);
       color = strtol((char *)buf2,NULL,16);
       Serial.printf("Buffer: 0x%02X \n",color);
+      Serial.printf("Address of buf 0x%X and value 0x%X\n",&buf2,buf2[0]);
+      Serial.printf("Address of colorFeed.lastread[1] =  0x%X and value 0x%X\n",&colorFeed.lastread[1],colorFeed.lastread[1]);
+      Serial.printf("Address of colorFeed.lastread+1 =  0x%X and value 0x%X\n",colorFeed.lastread+1,colorFeed.lastread[1]);
       ring(color,bright);
 
       // parse colors and write to EEPROM
