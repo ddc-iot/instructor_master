@@ -36,7 +36,7 @@ void loop() {
   for(i=STARTPIXEL; i<NUMPIXELS; i++) { 
     Serial.print("Lighting up pixel ");
     Serial.println(i);
-    pixels.setPixelColor(i,0,27,27);  
+    pixels.setPixelColor(i,0,255,255);  
     pixels.show();     // Send the updated pixel colors to the hardware.
     delay(pixeldelay); // Pause before next pass through loop
   }

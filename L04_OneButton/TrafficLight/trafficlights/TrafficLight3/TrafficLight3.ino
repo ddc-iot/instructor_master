@@ -1,13 +1,13 @@
 /*
-   Project: TrafficLight
-   Decription: Learn to create and use Classes, Objects, and Methods
-   Author: Brian Rashap
-   Date: 12-JUN-2020
-*/
+ * Project: Traffic Light
+ * Description: Teach OOP to the class
+ * Author: Brian Rashap
+ * Date: 08-OCT-2021
+ */
 
 #include "TrafficLight.h"
 #include "Button.h"
-#include "Timer.h"
+#include "IoTTimer.h"
 
 // Declare Pins
 const int GREENPIN = 5;
@@ -15,24 +15,26 @@ const int YELLOWPIN = 6;
 const int REDPIN = 7;
 const int BUTTONPIN = 23;
 
-Timer lightTimer;
+const int TIMER_RED = 5000;
+
+IoTTimer lightTimer;
 TrafficLight lightOne(GREENPIN,YELLOWPIN,REDPIN);
-Button buttonOne(BUTTONPIN);
+Button button(BUTTONPIN);
 
 void setup() {
-
-
+  
 }
 
 void loop() {
-  if(buttonOne.isPressed()) {
+  if(button.isPressed()) {
     lightOne.stop();
-    lightTimer.startTimer(10000);
+    lightTimer.startTimer(TIMER_RED);
   }
   else {
     if(lightTimer.isTimerReady()) {
-      lightOne.go();
+          lightOne.go();
     }
   }
+
   lightOne.trafficLoop();
 }

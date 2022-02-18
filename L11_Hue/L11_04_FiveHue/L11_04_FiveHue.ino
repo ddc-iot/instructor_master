@@ -21,7 +21,7 @@ bool last = HIGH;
 bool buttonstate;
 const int numBulbs=6;
  
-IPAddress ip(192,168,1,13);  // Teensy IP
+IPAddress ip(192,168,1,2);  // Teensy IP
 
 
 void setup()

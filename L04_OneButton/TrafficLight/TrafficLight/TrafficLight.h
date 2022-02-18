@@ -1,11 +1,11 @@
 #ifndef _TRAFFICLIGHT_H_
 #define _TRAFFICLIGHT_H_
 
-#include "Timer.h"
+#include "IoTTimer.h"
 
 class TrafficLight {
-  const int _TIMER_YELLOW = 3000;
-  const int _TIMER_REDYELLOW = 5000;
+  const int TIMER_RED_YELLOW = 3000;
+  const int TIMER_YELLOW = 2000;
   
   int _greenLED;
   int _yellowLED;
@@ -20,8 +20,8 @@ class TrafficLight {
 
   State _currentState = GREEN;
   State _targetState = GREEN;
-  Timer timer;
 
+  IoTTimer timer;
 
   public:
     TrafficLight(int greenLED, int yellowLED, int redLED) {
@@ -42,7 +42,7 @@ class TrafficLight {
       _targetState = RED;
     }
 
-    void trafficLoop () {
+    void trafficLoop() {
       if(_targetState == GREEN) {
         goToGreen();
       }
@@ -52,23 +52,23 @@ class TrafficLight {
     }
 
   private:
-
     void goToGreen() {
-      switch (_currentState) {
+      switch(_currentState) {
         case RED:
+          red();
           _currentState = RED_YELLOW;
-          timer.startTimer(_TIMER_REDYELLOW);
+          timer.startTimer(TIMER_RED_YELLOW);
           break;
         case RED_YELLOW:
-          redyellow();
-          if (timer.isTimerReady()) {
+          red_yellow();
+          if(timer.isTimerReady()) {
             _currentState = GREEN;
           }
           break;
         case GREEN:
           green();
           break;
-        default:
+        case YELLOW:
           _currentState = RED;
           break;
       }
@@ -77,25 +77,25 @@ class TrafficLight {
     void goToRed() {
       switch (_currentState) {
         case GREEN:
+          green();
           _currentState = YELLOW;
-          timer.startTimer(_TIMER_YELLOW);
+          timer.startTimer(TIMER_YELLOW);
           break;
         case YELLOW:
           yellow();
-          if(timer.isTimerReady()) {
+          if (timer.isTimerReady()) {
             _currentState = RED;
           }
           break;
         case RED:
           red();
           break;
-        default:
+        case RED_YELLOW:
           _currentState = GREEN;
           break;
       }
-      
     }
-
+  
     void green() {
       digitalWrite(_greenLED, HIGH);
       digitalWrite(_yellowLED, LOW);
@@ -112,13 +112,13 @@ class TrafficLight {
       digitalWrite(_greenLED, LOW);
       digitalWrite(_yellowLED, LOW);
       digitalWrite(_redLED, HIGH);
-    }
+    }   
 
-    void redyellow() {
+    void red_yellow() {
       digitalWrite(_greenLED, LOW);
       digitalWrite(_yellowLED, HIGH);
       digitalWrite(_redLED, HIGH);
-    }
+    } 
 };
 
 #endif // _TRAFFICLIGHT_H_

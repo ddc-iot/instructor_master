@@ -1,9 +1,9 @@
-##ifndef _BUTTON_H_
+#ifndef _BUTTON_H_
 #define _BUTTON_H_
 
 class Button {
   int _buttonPin;
-  
+
   public:
     Button(int buttonPin) {
       _buttonPin = buttonPin;

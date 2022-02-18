@@ -3,7 +3,7 @@
 
 class Button {
   int _buttonPin;
-  
+
   public:
     Button(int buttonPin) {
       _buttonPin = buttonPin;
