@@ -26,13 +26,12 @@ void setup() {
   Serial.begin(9600);
   while (!Serial); 
 
-  pinMode(LEDPIN1, OUTPUT);
-  pinMode(LEDPIN2, OUTPUT);
-  pinMode(LEDPIN3, OUTPUT);
-
   n = sizeof(LEDARRAY)/4;      // counter for the Array
-  buttonState = false;
+  for(j=0;j<n;j++) {
+    pinMode(LEDARRAY[j],OUTPUT);    
+  }
 
+  buttonState = false;
 
   // link the button 1 functions.
   button1.attachClick(click1);
@@ -43,15 +42,11 @@ void setup() {
   button1.setClickTicks(250);
   button1.setPressTicks(2000);
 
-  Serial.println("Starting oneButtonArray...");
-  Serial.print("LEDs are attached to pins: ");
-  for (j = 0; j<n; j++) {
-    Serial.print(LEDARRAY[j]);
-    if (j < (n-1)) {
-      Serial.print(",");
-    }
+  Serial.printf("Starting oneButtonArray...\nLEDs are attached to pins:");
+  for (j = 0; j<n-1; j++) {
+    Serial.printf("%i,",LEDARRAY[j]);
   }
-  Serial.println();
+  Serial.printf("%i\n\n",LEDARRAY[j]);
   j = 0;   // reset index to 0;
 } 
 
@@ -65,51 +60,38 @@ void loop() {
   }
 }
 
-
-// ----- button 1 callback functions
-
-// This function will be called when the button1 was pressed 1 time
 void click1() {
-  Serial.println("Button 1 click.");
+  Serial.printf("Button 1 click.\n");
   buttonState = !buttonState;
-  Serial.print("buttonState = ");
-  Serial.println(buttonState);  
-} // click1
+  Serial.printf("buttonState = %i\n",buttonState); 
+}
 
-
-// This function will be called when the button1 was pressed 2 times in a short timeframe.
 void doubleclick1() {
-  Serial.println("Button 1 doubleclick.");
+  Serial.printf("Button 1 doubleclick.\n");
   j++;
   if (j > 2) j = 0;
-  Serial.print("j = ");
-  Serial.println(j);
-} // doubleclick1
+  Serial.printf("j = %i\n",j);
+}
 
 
-// This function will be called once, when the button1 is pressed for a long time.
 void longPressStart1() {
-  Serial.println("Button 1 longPress start");
-  for (n = 0; n<3; n++) {
-    digitalWrite(LEDARRAY[n], HIGH);
-    delay(200);
-    digitalWrite(LEDARRAY[n], LOW);
+  Serial.printf("Button 1 longPress start\n");
+  for (j = 0; j<n; j++) {
+    digitalWrite(LEDARRAY[j], HIGH);
+    delay(500);
+    digitalWrite(LEDARRAY[j], LOW);
   }
-} // longPressStart1
+}
 
-
-// This function will be called often, while the button1 is pressed for a long time.
 void longPress1() {
-  Serial.println("Button 1 longPress...");
-} // longPress1
+  Serial.printf("Button 1 longPress...\n");
+}
 
-
-// This function will be called once, when the button1 is released after beeing pressed for a long time.
 void longPressStop1() {
-  Serial.println("Button 1 longPress stop");
-  for (n = 2; n>=0; n--) {
-    digitalWrite(LEDARRAY[n], HIGH);
-    delay(200);
-    digitalWrite(LEDARRAY[n], LOW);
+  Serial.printf("Button 1 longPress stop.\n");
+  for (j = n-1; j>=0; j--) {
+    digitalWrite(LEDARRAY[j], HIGH);
+    delay(500);
+    digitalWrite(LEDARRAY[j], LOW);
   }
-} // longPressStop1
+}
