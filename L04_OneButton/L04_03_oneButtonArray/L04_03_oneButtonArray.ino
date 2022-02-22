@@ -20,6 +20,7 @@ boolean buttonState;
 
 int n;                     // number of LEDs, to be set in void setup()
 int j;                     // index variable for which LED to light
+int jState;
 
 void setup() {
 
@@ -76,6 +77,10 @@ void doubleclick1() {
 
 void longPressStart1() {
   Serial.printf("Button 1 longPress start\n");
+  jState = j;
+  for (j = 0; j<n; j++) {
+    digitalWrite(LEDARRAY[j], LOW);
+  }
   for (j = 0; j<n; j++) {
     digitalWrite(LEDARRAY[j], HIGH);
     delay(500);
@@ -94,4 +99,6 @@ void longPressStop1() {
     delay(500);
     digitalWrite(LEDARRAY[j], LOW);
   }
+  j=jState;
+  digitalWrite(j,buttonState);
 }
