@@ -36,10 +36,10 @@ void setup() {
   while(!Serial);
   myServo.attach(22);
   Serial.printf("Get Started\n");
-  pinMode(13,OUTPUT);
   pinMode(5,OUTPUT);
-  digitalWrite(13,LOW);
-  digitalWrite(5,HIGH);
+  pinMode(7,OUTPUT);
+  digitalWrite(5,LOW);
+  digitalWrite(7,HIGH);
 }
 
 void loop() {
@@ -56,18 +56,18 @@ void loop() {
     Serial.printf("%c",code[i]);
   }
   Serial.printf("\n");
-  if(checkMatch(code,key)){
+  if(isMatched(code,key)){
     locked = !locked;
     Serial.printf("Locked: %i\n",locked);
     if(locked) {
-      myServo.write(200);
-      digitalWrite(13,HIGH);
-      digitalWrite(5,LOW);
+      myServo.write(locked+180);
+      digitalWrite(5,HIGH);
+      digitalWrite(7,LOW);
     }
     else {
-      myServo.write(0);
-      digitalWrite(13,LOW);
-      digitalWrite(5,HIGH);
+      myServo.write(locked);
+      digitalWrite(5,LOW);
+      digitalWrite(7,HIGH);
     }
   }
   else {
@@ -76,15 +76,13 @@ void loop() {
 }
 
 
-bool checkMatch(char code[4], char key[4]) {
+bool isMatched(char enteredCode[4], char secretKey[4]) {
   int i;
-  bool match = false;
 
   for(i=0;i<4;i++) {
-    if(code[i] != key[i]) {
-      return match;
+    if(enteredCode[i] != secretKey[i]) {
+      return false;
     }
   }
-  match = true;
-  return match;
+  return true;
 }
