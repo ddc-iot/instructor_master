@@ -18,34 +18,41 @@ unsigned long lastmillis = -10000;
 unsigned int elapse;
 bool onoff = false;
 bool last = HIGH;
+bool status;
+byte thisbyte;
 bool buttonstate;
 const int numBulbs=6;
  
-IPAddress ip(192,168,1,2);  // Teensy IP
+//IPAddress ip(192,168,1,12);  // Teensy IP
 
 
 void setup()
 {
   pinMode(10, OUTPUT);
   digitalWrite(10, HIGH);
+  pinMode(4, OUTPUT);
+  digitalWrite(4, HIGH);
 
   Serial.begin(9600);
 
+  Serial.printf("Starting Program:\n");
 
-  Ethernet.begin(mac);
-  delay(1000);
-  Serial.println("connecting...");
-
-  // print your local IP address:
-  Serial.print("My IP address: ");
-  for (byte thisByte = 0; thisByte < 4; thisByte++) {
-    // print the value of each byte of the IP address:
-    Serial.print(Ethernet.localIP()[thisByte], DEC);
-    Serial.print("."); 
+  //Start ethernet connection
+  status = Ethernet.begin(mac);
+  if (!status) {
+    Serial.printf("failed to configure Ethernet using DHCP \n");
+    //no point in continueing 
+    while(1);
   }
-  Serial.println();  
-  //Ethernet.begin(mac,ip);
-  //delay(2000);
+    
+  //print your local IP address
+  Serial.print("My IP address: ");
+  for (thisbyte = 0; thisbyte < 3; thisbyte++) {
+    //print value of each byte of the IP address
+    Serial.printf("%i.",Ethernet.localIP()[thisbyte]);
+    }
+  Serial.printf("%i\n",Ethernet.localIP()[thisbyte]);
+  
   Serial.print("LinkStatus: ");
   Serial.println(Ethernet.linkStatus());
 

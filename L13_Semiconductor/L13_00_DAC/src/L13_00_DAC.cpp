@@ -3,7 +3,7 @@
 /******************************************************/
 
 #include "Particle.h"
-#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L13_Semiconductor/L13_00_DAC/src/L13_00_DAC.ino"
+#line 1 "c:/Users/ddcio/Documents/IoT/instructor_master/L13_Semiconductor/L13_00_DAC/src/L13_00_DAC.ino"
 /*
  * Project L13_00_DAC
  * Description: Sine Wave Generator for Digital to Analog Project 
@@ -15,12 +15,13 @@
 
 void setup();
 void loop();
-#line 10 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L13_Semiconductor/L13_00_DAC/src/L13_00_DAC.ino"
+#line 10 "c:/Users/ddcio/Documents/IoT/instructor_master/L13_Semiconductor/L13_00_DAC/src/L13_00_DAC.ino"
 const int PIN63 = D4;
 const int SIGNALPIN = A0;
 const int FREQ = 75;
 
 float t, signal;
+SYSTEM_MODE(SEMI_AUTOMATIC);
 
 void setup() {
   pinMode(PIN63,OUTPUT);

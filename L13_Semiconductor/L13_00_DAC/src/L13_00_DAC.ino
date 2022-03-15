@@ -12,6 +12,7 @@ const int SIGNALPIN = A0;
 const int FREQ = 75;
 
 float t, signal;
+SYSTEM_MODE(SEMI_AUTOMATIC);
 
 void setup() {
   pinMode(PIN63,OUTPUT);
