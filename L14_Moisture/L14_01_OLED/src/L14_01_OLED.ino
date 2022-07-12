@@ -14,7 +14,7 @@ Adafruit_SSD1306 display(OLED_RESET);
 const unsigned int updateTime = 5000;
 unsigned int lastTime;
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
+//SYSTEM_MODE(SEMI_AUTOMATIC);
 
 void setup() {
 

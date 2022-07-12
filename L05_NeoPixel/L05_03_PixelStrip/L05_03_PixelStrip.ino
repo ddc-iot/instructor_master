@@ -41,6 +41,9 @@ void setup() {
 
 void loop() {
 
+  pixels.fill(maize,0,60);
+  delay(1000);
+
   for (j = 0; j < 5; j++) {  // run a light up and down the LED string 5 times
     RNDpixels();
   }

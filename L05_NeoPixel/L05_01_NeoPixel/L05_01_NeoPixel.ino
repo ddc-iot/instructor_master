@@ -18,6 +18,7 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 const int STARTPIXEL = 0; // the first pixel is 0
 int i = 0;                 // counter variable
 int pixeldelay=1000;
+int colorpix;
 
 void setup() {
   Serial.begin(9600);
@@ -33,10 +34,11 @@ void loop() {
   pixels.clear(); // Set all pixel colors to 'off'
   pixels.show();
 
+  colorpix = random(0x000000,0xFFFFFF);
   for(i=STARTPIXEL; i<NUMPIXELS; i++) { 
     Serial.print("Lighting up pixel ");
     Serial.println(i);
-    pixels.setPixelColor(i,0,255,255);  
+    pixels.setPixelColor(i,colorpix);  
     pixels.show();     // Send the updated pixel colors to the hardware.
     delay(pixeldelay); // Pause before next pass through loop
   }

@@ -14,7 +14,7 @@
 #include <wemo.h>
 #include <Encoder.h>
  
-const int mywemo = 5;
+const int mywemo = 3;
 int inPin = 23;
 bool state = true;
 bool reading;
@@ -42,8 +42,8 @@ void setup()
 
 void loop(){
 
-   //reading = digitalRead(inPin);
-   Serial.printf("%i\n",myEnc.read());
+   reading = digitalRead(inPin);
+   //Serial.printf("%i\n",myEnc.read());
    
    if (reading != state){
      if (reading==true){

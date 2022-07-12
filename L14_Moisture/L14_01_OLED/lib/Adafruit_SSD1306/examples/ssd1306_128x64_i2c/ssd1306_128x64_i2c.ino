@@ -55,6 +55,9 @@ static const unsigned char logo16_glcd_bmp[] =
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
+
+
+
 void setup()   {                
   Serial.begin(9600);
 

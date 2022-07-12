@@ -3,7 +3,7 @@
 /******************************************************/
 
 #include "Particle.h"
-#line 1 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L14_Moisture/L14_01_OLED/src/L14_01_OLED.ino"
+#line 1 "c:/Users/ddcio/Documents/IoT/instructor_master/L14_Moisture/L14_01_OLED/src/L14_01_OLED.ino"
 /*
  * Project L14_01_OLED
  * Description: Learn to use OLED display with Particle Argon
@@ -17,14 +17,14 @@
 void setup();
 void loop();
 void displayTime();
-#line 11 "c:/Users/IoT_Instructor/Documents/IoT/instructor_master/L14_Moisture/L14_01_OLED/src/L14_01_OLED.ino"
+#line 11 "c:/Users/ddcio/Documents/IoT/instructor_master/L14_Moisture/L14_01_OLED/src/L14_01_OLED.ino"
 #define OLED_RESET D4
 Adafruit_SSD1306 display(OLED_RESET);
 
 const unsigned int updateTime = 5000;
 unsigned int lastTime;
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
+//SYSTEM_MODE(SEMI_AUTOMATIC);
 
 void setup() {
 
